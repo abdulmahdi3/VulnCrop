@@ -1,0 +1,24 @@
+<style>
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px; 
+    }
+    
+    input {
+      padding: 10px; 
+      font-size: 16px;
+    }
+    
+    button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    </style>
+    
+    <form method="POST" action="/run_scan">
+        <input type="text" name="target" placeholder="Enter website">
+        <button type="submit">Scan</button>
+    </form>
