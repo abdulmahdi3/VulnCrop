@@ -4,9 +4,15 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__, template_folder="templates")
 
+def ensure_trailing_slash(target_url):
+    if not target_url.endswith('/'):
+        target_url += '/'
+    return target_url
+
 #####################################################################################################################
 #Broken Access Control
 def run_gobuster_Broken_Access_Control(target_url, url_folder): 
+    ensure_trailing_slash(target_url)
     output=subprocess.check_output(["gobuster","dir","-u",target_url,"-w","/usr/local/share/wordlists/wfuzz/general/catala.txt"])
     outfile = os.path.join(url_folder,"output_gobuster.txt")
     with open(outfile,"wb") as f:
@@ -14,11 +20,20 @@ def run_gobuster_Broken_Access_Control(target_url, url_folder):
     return render_template("results.html", gobuster_output=output.decode("utf-8"))
 
 def run_ffuf_Broken_Access_Control(target_url, url_folder):
-    output=subprocess.check_output(["ffuf","-u",target_url+"FUZZ","-w","/usr/local/share/wordlists/wfuzz/general/catala.txt","-mc","200"])
+    ensure_trailing_slash(target_url)
+    output=subprocess.check_output(["ffuf","-w","/usr/local/share/wordlists/wfuzz/general/catala.txt","-u",target_url+"FUZZ","-mc","200"])
     outfile = os.path.join(url_folder,"output_ffuf.txt")
     with open(outfile,"wb") as f:
         f.write(output)
     return render_template("results.html", ffuf_output=output.decode("utf-8"))
+
+def run_nmap_Broken_Access_Control(target_url, url_folder): 
+    ensure_trailing_slash(target_url)
+    output=subprocess.check_output(["nmap","-p","80,443","--script","http-enum",target_url])
+    outfile = os.path.join(url_folder,"output_nmap.txt")
+    with open(outfile,"wb") as f:
+        f.write(output)
+    return render_template("results.html", nmap_output=output.decode("utf-8"))
 
 
 #####################################################################################################################
@@ -29,10 +44,10 @@ def run_toxssin_Cross_site_scripting_XSS(target_url, url_folder):
 def run_wapiti_Cross_site_scripting_XSS(target_url, url_folder):
     return "Cross-Site Scripting(XSS)"
 
-def run_xss_strike_Cross_site_scripting_XSS(target_url, url_folder):
+def run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder):
     xsstrike_path = os.path.join(app.root_path, "XSStrike", "xsstrike.py")
     output = subprocess.check_output(["python3", xsstrike_path, "-u", target_url, "--crawl"])
-    outfile = os.path.join(url_folder, "output_xss_strike.txt")
+    outfile = os.path.join(url_folder, "output_xsstrike.txt")
     with open(outfile, "wb") as f:
         f.write(output)
     return render_template("results.html", xsstrike_output=output.decode("utf-8"))
@@ -112,9 +127,11 @@ def results():
     url_folder = os.path.join(app.root_path, "scans", target_url)
     os.makedirs(url_folder, exist_ok=True)  
 
-    run_xss_strike_Cross_site_scripting_XSS(target_url, url_folder)
+    run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder)
     run_gobuster_Broken_Access_Control(target_url,url_folder)
     run_ffuf_Broken_Access_Control(target_url, url_folder)
+    run_nmap_Broken_Access_Control(target_url, url_folder)
+
     return render_template("results.html", target_url=target_url)
 
 

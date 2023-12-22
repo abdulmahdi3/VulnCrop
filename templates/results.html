@@ -47,19 +47,21 @@
             <summary>1-Broken Access Results</summary>
             <div class="scrollable-content">
                 <pre>
+                    {{ gobuster_output | safe }}
+                    {{ ffuf_output | safe }}
+                    {{ nmap_output | safe }}
+                </pre>
+            </div>
+        </details>
+        <details>
+            <summary>2-Cross-Site Scripting (XSS) Results</summary>
+            <div class="scrollable-content">
+                <pre>
                     {{ xsstrike_output | safe }}
                 </pre>
             </div>
         </details>
         <!-- Add sections for other security tools
-        <details>
-            <summary>2-Cross-Site Scripting (XSS) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-                    {{ sql_injection_output | safe }}
-                </pre>
-            </div>
-        </details>
         <details>
             <summary>3-SQL Injection Results</summary>
             <div class="scrollable-content">
