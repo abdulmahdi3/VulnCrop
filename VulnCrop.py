@@ -7,10 +7,19 @@ app = Flask(__name__, template_folder="templates")
 #####################################################################################################################
 #Broken Access Control
 def run_gobuster_Broken_Access_Control(target_url, url_folder): 
-    return "Broken Access Control"
+    output=subprocess.check_output(["gobuster","dir","-u",target_url,"-w","/usr/local/share/wordlists/wfuzz/general/catala.txt"])
+    outfile = os.path.join(url_folder,"output_gobuster.txt")
+    with open(outfile,"wb") as f:
+        f.write(output)
+    return render_template("results.html", gobuster_output=output.decode("utf-8"))
 
-def run_fuff_Broken_Access_Control(target_url, url_folder):
-    return "Broken Access Control"
+def run_ffuf_Broken_Access_Control(target_url, url_folder):
+    output=subprocess.check_output(["ffuf","-u",target_url+"FUZZ","-w","/usr/local/share/wordlists/wfuzz/general/catala.txt","-mc","200"])
+    outfile = os.path.join(url_folder,"output_ffuf.txt")
+    with open(outfile,"wb") as f:
+        f.write(output)
+    return render_template("results.html", ffuf_output=output.decode("utf-8"))
+
 
 #####################################################################################################################
 #Cross-Site Scripting(XSS)
@@ -34,7 +43,8 @@ def run_sqlmap_SQL_Injection(target_url, url_folder):
     return "SQL Injection"
 
 def run_dsss_SQL_Injection(target_url, url_folder):
-    return "SQL Injection"
+    dss_path= os.path.join(app.root_path,"DSSS","dsss.py")
+    output=subprocess.check_output(["python3",dss_path, "-u",target_url, ]) #this requierd new url ending with e.g:listproducts.php?cat=1 
 
 #####################################################################################################################
 #XML External Entity (XXE)
@@ -100,11 +110,11 @@ def index():
 def results():
     target_url = request.form["target_url"]
     url_folder = os.path.join(app.root_path, "scans", target_url)
-    os.makedirs(url_folder, exist_ok=True)  # Create a folder for the scanned URL if it doesn't exist
+    os.makedirs(url_folder, exist_ok=True)  
 
     run_xss_strike_Cross_site_scripting_XSS(target_url, url_folder)
-    # run_sql_injection(target_url, url_folder)
-
+    run_gobuster_Broken_Access_Control(target_url,url_folder)
+    run_ffuf_Broken_Access_Control(target_url, url_folder)
     return render_template("results.html", target_url=target_url)
 
 
