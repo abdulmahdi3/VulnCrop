@@ -47,9 +47,21 @@
             <summary>1-Broken Access Results</summary>
             <div class="scrollable-content">
                 <pre>
-                    {{ gobuster_output | safe }}
-                    {{ ffuf_output | safe }}
-                    {{ nmap_output | safe }}
+                    {% if gobuster_output %}
+                        {{ gobuster_output | safe }}
+                    {% else %}
+                        No results for Gobuster
+                    {% endif %}
+                    {% if ffuf_output %}
+                        {{ ffuf_output | safe }}
+                    {% else %}
+                        No results for FFUF
+                    {% endif %}
+                    {% if nmap_output %}
+                        {{ nmap_output | safe }}
+                    {% else %}
+                        No results for Nmap
+                    {% endif %}
                 </pre>
             </div>
         </details>
@@ -57,7 +69,11 @@
             <summary>2-Cross-Site Scripting (XSS) Results</summary>
             <div class="scrollable-content">
                 <pre>
-                    {{ xsstrike_output | safe }}
+                    {% if xsstrike_output %}
+                        {{ xsstrike_output | safe }}
+                    {% else %}
+                        No results for XSStrike
+                    {% endif %}
                 </pre>
             </div>
         </details>
