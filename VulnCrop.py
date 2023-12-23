@@ -3,7 +3,6 @@ import subprocess
 from flask import Flask, render_template, request  
 
 app = Flask(__name__, template_folder="templates")
-current_progress = 0
 
 def ensure_trailing_slash(target_url):
     if not target_url.endswith('/'):
@@ -117,16 +116,6 @@ def run_THC_Hydra_Session_Hijacking_and_Session_Fixation(target_url, url_folder)
 
 #####################################################################################################################
 
-@app.route("/progress")
-def progress():
-    print("abdulmahdi")
-    global current_progress 
-    current_progress += 10
-    if current_progress > 100:
-        current_progress = 100
-
-    return {"progress": current_progress}
-
 
 @app.route("/")
 def index():
@@ -134,28 +123,17 @@ def index():
 
 @app.route("/results", methods=["POST"])  
 def results():
-    global current_progress 
 
     target_url = request.form["target_url"]
     url_folder = os.path.join(app.root_path, "scans", target_url)
     os.makedirs(url_folder, exist_ok=True)  
 
-    current_progress=0
-
     gobuster_output = run_gobuster_Broken_Access_Control(target_url, url_folder)
-    current_progress += 25
-
     nmap_output = run_nmap_Broken_Access_Control(target_url, url_folder)
-    current_progress += 25
-
     ffuf_output = run_ffuf_Broken_Access_Control(target_url, url_folder)
-    current_progress += 25
-
     xsstrike_output = run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder)
-    current_progress += 25
 
     return render_template("results.html", target_url=target_url, gobuster_output=gobuster_output,ffuf_output=ffuf_output, nmap_output=nmap_output, xsstrike_output=xsstrike_output)
-
 
 if __name__ == "__main__":
    app.run(debug=True, port=5000)
