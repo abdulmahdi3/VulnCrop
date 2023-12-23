@@ -1,0 +1,5 @@
+
+	XSStrike v3.1.5
+
+ Crawling the target 
+ Parsing                                           Parsing terms-and-conditions-weblatte             Parsing                                           Progress: 3/3 
