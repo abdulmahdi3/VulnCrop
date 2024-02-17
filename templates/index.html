@@ -114,6 +114,24 @@
         }
       }
 
+      .mobile-message {
+        display: none;
+      }
+
+      @media only screen and (max-width: 768px), (max-height: 768px) {
+        body > *:not(.mobile-message) {
+          display: none !important;
+        }
+
+        .mobile-message {
+          display: block;
+          text-align: center;
+          color: #fff;
+          font-size: 1.5em;
+          margin-top: 20px;
+        }
+      }
+
       * {
         box-sizing: border-box;
 
@@ -204,8 +222,8 @@
       }
 
       .word {
+        margin-bottom: 5em;
         position: absolute;
-        top: 15%;
         color: #15F5BA;
         font-size: 4em;
         letter-spacing: 2px;
@@ -223,8 +241,6 @@
   </head>
 
 <body>
-
-
   <div class="word"></div>
   <form method="POST" action="/results" class="form-group">
     <span>http://</span>
@@ -245,7 +261,7 @@
     <span class="SSL">I'm <span style="color: #15F5BA;">Authorized</span> to Test.</span>
   </div>
   <p class="authority-alert"><span style="color: #15F5BA;">*</span>Please make sure to check the authority checkbox.</p>
-
+  <p class="mobile-message">This website only supports PC. Please access it from a desktop device.</p>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
