@@ -1,0 +1,6 @@
+
+	XSStrike v3.1.5
+
+ Crawling the target 
+ Parsing                                          [!!] Unable to connect to the target. 
+ Progress: 1/1 
