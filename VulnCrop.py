@@ -1,6 +1,8 @@
 import os
 import subprocess
-from flask import Flask, render_template, request  
+from itertools import count
+from flask import Flask, render_template, request, redirect, url_for
+
 
 #pip install wapiti3 #usning this tool in xss and xxe
 
@@ -115,26 +117,33 @@ def run_CSRFTester_Cross_Site_Request_Forgery(target_url, url_folder):
 #####################################################################################################################
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def Homepage():
+    if request.method == "POST":
+        return redirect(url_for('AttacksPage'))
     return render_template("Homepage.html")
 
-@app.route("/results", methods=["POST"])  
-def results():
-    selected_attacks = request.form.getlist("attacks[]")
-    target_url = request.form["target_url"]
-    url_folder = os.path.join(app.root_path, "scans", target_url)
-    os.makedirs(url_folder, exist_ok=True)  
+@app.route("/attacks", methods=["GET", "POST"])
+def AttacksPage():
+    if request.method == "POST":
+        # Process the form data and perform the scan
+        selected_attacks = request.form.getlist("attacks[]")
+        target_url = request.form["target_url"]
+        url_folder = os.path.join(app.root_path, "scans", target_url)
+        os.makedirs(url_folder, exist_ok=True)  
 
-    results = {}
-    for attack in selected_attacks:
-        if attack == "Broken Access Control":
-            results[attack + " (gobuster)"] = gobuster(target_url, url_folder)
-            results[attack + " (katana)"] = katana(target_url, url_folder)
-        elif attack == "Cross-Site Scripting (XSS)":
-            results[attack] = run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder)
+        results = {}
+        counter = count(1)  # Counter for numbering
+        for attack in selected_attacks:
+            if attack == "Broken Access Control":
+                results[next(counter)] = (attack + " (gobuster)", gobuster(target_url, url_folder))
+                results[next(counter)] = (attack + " (katana)", katana(target_url, url_folder))
+            elif attack == "Cross-Site Scripting (XSS)":
+                results[next(counter)] = (attack, run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder))
 
-    return render_template("results.html", target_url=target_url, results=results)
+        return render_template("results.html", target_url=target_url, results=results)
+
+    return render_template("attacks.html")
 
 if __name__ == "__main__":
    app.run(debug=True, port=5000)

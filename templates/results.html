@@ -97,26 +97,26 @@
         <button>Download Report</button>
     </div>
     <div class="output-container">
-        {% for index, (attack, output) in enumerate(results.items(), 1) %}
-            <details>
-                <summary>{{ index }}-{{ attack }} Results</summary>
-                <div class="scrollable-content">
-                    <pre>
-                        <span class="tool-name"><b>{{ attack }}</b></span>  
-                        {% if output %}
-                            {{ output | safe }}
-                        {% else %}
-                            No results for {{ attack }}
-                        {% endif %}
-                        <span class="tool-name"><b>{{ attack }}</b></span>  
-                        {% if output %}
-                            {{ output | safe }}
-                        {% else %}
-                            No results for {{ attack }}
-                        {% endif %}
-                    </pre>
-                </div>
-            </details>
+        {% for index, (attack, output) in results.items() %}
+        <details>
+            <summary>{{ index }}-{{ attack }} Results</summary>
+            <div class="scrollable-content">
+                <pre>
+                    <span class="tool-name"><b>{{ attack }}</b></span>  
+                    {% if output %}
+                        {{ output | safe }}
+                    {% else %}
+                        No results for {{ attack }}
+                    {% endif %}
+                    <span class="tool-name"><b>{{ attack }}</b></span>  
+                    {% if output %}
+                        {{ output | safe }}
+                    {% else %}
+                        No results for {{ attack }}
+                    {% endif %}
+                </pre>
+            </div>
+        </details>
         {% endfor %}
     </div>
 </body>
