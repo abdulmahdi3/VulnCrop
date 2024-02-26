@@ -2,5 +2,4 @@
 	XSStrike v3.1.5
 
  Crawling the target 
- Parsing                                          [!!] Unable to connect to the target. 
- Progress: 1/1 
+ Parsing                                           Parsing                                           Parsing terms-and-conditions-weblatte             Progress: 3/3 

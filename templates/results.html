@@ -108,21 +108,6 @@
     No results for Gobuster
 {% endif %}
 
-<span class="tool-name"><b>nmap</b></span>  
-  
-{% if nmap_output %}
-{{ nmap_output | safe }}
-{% else %}
-No results for Nmap
-{% endif %}
-
-<span class="tool-name"><b>ffuf</b></span>  
-  
-{% if ffuf_output %}
-    {{ ffuf_output | safe }}
-{% else %}
-    No results for FFUF
-{% endif %}
 <span class="tool-name"><b>katana</b></span>  
   
 {% if katana_output %}

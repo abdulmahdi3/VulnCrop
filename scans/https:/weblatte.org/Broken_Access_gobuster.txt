@@ -2,7 +2,7 @@
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     https://weblatte.org/
+[+] Url:                     https://weblatte.org
 [+] Method:                  GET
 [+] Threads:                 10
 [+] Wordlist:                /Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt

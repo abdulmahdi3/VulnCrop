@@ -21,22 +21,6 @@ def run_gobuster_Broken_Access_Control(target_url, url_folder):
         f.write(output)
     return output.decode("utf-8")
 
-def run_ffuf_Broken_Access_Control(target_url, url_folder):
-    ensure_trailing_slash(target_url)
-    output=subprocess.check_output(["ffuf","-w","/Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt","-u",target_url+"FUZZ","-mc","200"])
-    outfile = os.path.join(url_folder,"Broken_Access_ffuf.txt")
-    with open(outfile,"wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
-
-def run_nmap_Broken_Access_Control(target_url, url_folder): 
-    ensure_trailing_slash(target_url)
-    output=subprocess.check_output(["nmap","-sV","--script","http-enum","-p80,443",target_url])
-    outfile = os.path.join(url_folder,"Broken_Access_nmap.txt")
-    with open(outfile,"wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
-
 def katana_Broken_Access_Control(target_url, url_folder): 
     ensure_trailing_slash(target_url)
     output=subprocess.check_output(["katana", "-u" ,target_url,"|","grep","?"])
@@ -44,7 +28,6 @@ def katana_Broken_Access_Control(target_url, url_folder):
     with open(outfile,"wb") as f:
         f.write(output)
     return output.decode("utf-8")
-
 
 #####################################################################################################################
 #Cross-Site Scripting(XSS)
@@ -82,14 +65,6 @@ def run_xxeinjector_XML_External_Entity_XXE(target_url, url_folder):
     return "XML External Entity (XXE)"
 
 #####################################################################################################################
-#Remote File Inclusion (RFI) & Local File Inclusion (LFI)
-def run_Lfiscan_Local_File_Inclusion_LFI(target_url, url_folder):
-    return "Remote File Inclusion (RFI) & Local File Inclusion (LFI)"
-
-def run_Lfispace_Local_File_Inclusion_LFI(target_url, url_folder):
-    return "Remote File Inclusion (RFI) & Local File Inclusion (LFI)"
-
-#####################################################################################################################
 #File Upload
 def run_nikto_File_upload(target_url, url_folder):
     return "File Upload"
@@ -121,19 +96,11 @@ def run_CSRFTester_Cross_Site_Request_Forgery(target_url, url_folder):
     return "Server-Side Request Forgery(SSRF)"
 
 #####################################################################################################################
-#Session Hijacking and Session Fixation
-def run_Firesheep_Session_Hijacking_and_Session_Fixation(target_url, url_folder):
-    return "Session Hijacking and Session Fixation"
-
-def run_THC_Hydra_Session_Hijacking_and_Session_Fixation(target_url, url_folder):
-    return "Session Hijacking and Session Fixation"
-
-#####################################################################################################################
 
 
 @app.route("/")
-def index():
-    return render_template("index.html")
+def Homepage():
+    return render_template("Homepage.html")
 
 @app.route("/results", methods=["POST"])  
 def results():
@@ -144,8 +111,6 @@ def results():
 
     #broken access control
     gobuster_output = run_gobuster_Broken_Access_Control(target_url, url_folder)
-    nmap_output = run_nmap_Broken_Access_Control(target_url, url_folder)
-    ffuf_output = run_ffuf_Broken_Access_Control(target_url, url_folder)
     katana_output=katana_Broken_Access_Control(target_url, url_folder)
 
     #XSS
@@ -154,7 +119,7 @@ def results():
     #SQL injection
     # dsss_output=run_dsss_SQL_Injection(target_url, url_folder)
 
-    return render_template("results.html", target_url=target_url, katana_output=katana_output,gobuster_output=gobuster_output,ffuf_output=ffuf_output, nmap_output=nmap_output, xsstrike_output=xsstrike_output)#dsss_output=dsss_output
+    return render_template("results.html", target_url=target_url, katana_output=katana_output,gobuster_output=gobuster_output, xsstrike_output=xsstrike_output)#dsss_output=dsss_output
 
 if __name__ == "__main__":
    app.run(debug=True, port=5000)

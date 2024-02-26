@@ -88,12 +88,10 @@ body {
     }
 }
 .word {
-    margin-bottom: 5em;
-    position: absolute;
-    color: #15F5BA;
-    font-size: 4em;
-    letter-spacing: 2px;
-    text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
+  color: #15F5BA;
+  font-size: 4em;
+  letter-spacing: 2px;
+  text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
 }
 @supports(-webkit-appearance: none) or (-moz-appearance: none) {
     input[type='checkbox']{
@@ -197,7 +195,6 @@ body {
         color: #826fff89;
     }
   ul {
-    margin-top: 15em;
     padding: 0;
     list-style:none;
     width: 100%;
