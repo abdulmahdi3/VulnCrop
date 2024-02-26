@@ -97,145 +97,27 @@
         <button>Download Report</button>
     </div>
     <div class="output-container">
-        <details>
-            <summary>1-Broken Access Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>gobuster</b></span>  
-{% if gobuster_output %}
-    {{ gobuster_output | safe }}
-{% else %}
-    No results for Gobuster
-{% endif %}
-
-<span class="tool-name"><b>katana</b></span>  
-  
-{% if katana_output %}
-    {{ katana_output | safe }}
-{% else %}
-    No results for katana
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>2-Cross-Site Scripting (XSS) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>xsstrike</b></span>  
-{% if xsstrike_output %}
-    {{ xsstrike_output | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>3-SQL Injection Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>DSSS</b></span>  
-{% if dsss_output %}
-    {{ dsss_output | safe }}
-{% else %}
-    No results for DSSS
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>4-XML External Entity (XXE) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>XML External Entity (XXE)</b></span>  
-{% if XXE %}
-    {{ XXE | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>5-Remote File Inclusion (RFI) & Local File Inclusion (LFI) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>Remote File Inclusion (RFI) & Local File Inclusion (LFI)</b></span>  
-{% if RFI %}
-    {{ RFI | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>6-File Upload Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>File Upload</b></span>  
-{% if File_Upload %}
-    {{ File_Upload | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>7-Insecure design Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>Insecure design</b></span>  
-{% if xsstrike_output %}
-    {{ xsstrike_output | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>8-Server-Side Request Forgery(SSRF) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>Server-Side Request Forgery(SSRF)</b></span>  
-{% if xsstrike_output %}
-    {{ xsstrike_output | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>9-Cross-Site Request Forgery(CSRF) Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>Cross-Site Request Forgery(CSRF)</b></span>  
-{% if xsstrike_output %}
-    {{ xsstrike_output | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-        <details>
-            <summary>10-Session Hijacking and Session Fixation Results</summary>
-            <div class="scrollable-content">
-                <pre>
-<span class="tool-name"><b>Session Hijacking and Session Fixation</b></span>  
-{% if xsstrike_output %}
-    {{ xsstrike_output | safe }}
-{% else %}
-    No results for XSStrike
-{% endif %}
-                </pre>
-            </div>
-        </details>
-
+        {% for index, (attack, output) in enumerate(results.items(), 1) %}
+            <details>
+                <summary>{{ index }}-{{ attack }} Results</summary>
+                <div class="scrollable-content">
+                    <pre>
+                        <span class="tool-name"><b>{{ attack }}</b></span>  
+                        {% if output %}
+                            {{ output | safe }}
+                        {% else %}
+                            No results for {{ attack }}
+                        {% endif %}
+                        <span class="tool-name"><b>{{ attack }}</b></span>  
+                        {% if output %}
+                            {{ output | safe }}
+                        {% else %}
+                            No results for {{ attack }}
+                        {% endif %}
+                    </pre>
+                </div>
+            </details>
+        {% endfor %}
     </div>
 </body>
 

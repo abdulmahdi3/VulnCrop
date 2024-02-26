@@ -13,21 +13,36 @@ def ensure_trailing_slash(target_url):
 
 #####################################################################################################################
 #Broken Access Control
-def run_gobuster_Broken_Access_Control(target_url, url_folder): 
+def gobuster(target_url, url_folder): 
     ensure_trailing_slash(target_url)
-    output=subprocess.check_output(["gobuster","dir","-u",target_url,"-w","/Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt"])
-    outfile = os.path.join(url_folder,"Broken_Access_gobuster.txt")
-    with open(outfile,"wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
+    try:
+        output=subprocess.check_output(["gobuster","dir","-u",target_url,"-w","/Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt"])
+        outfile = os.path.join(url_folder,"Broken_Access_gobuster.txt")
+        with open(outfile,"wb") as f:
+            f.write(output)
+        return output.decode("utf-8")
 
-def katana_Broken_Access_Control(target_url, url_folder): 
+    except subprocess.CalledProcessError as e:
+        print("Error:", e)
+        output=None            
+        return output.decode("utf-8")
+    pass
+    
+
+def katana(target_url, url_folder): 
     ensure_trailing_slash(target_url)
-    output=subprocess.check_output(["katana", "-u" ,target_url,"|","grep","?"])
-    outfile = os.path.join(url_folder,"Broken_Access_katana.txt")
-    with open(outfile,"wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
+    try:
+        output=subprocess.check_output(["katana", "-u" ,target_url,"|","grep","?"])
+        outfile = os.path.join(url_folder,"Broken_Access_katana.txt")
+        with open(outfile,"wb") as f:
+            f.write(output)
+        return output.decode("utf-8")
+
+    except subprocess.CalledProcessError as e:
+        print("Error:", e)
+        output=None            
+        return output.decode("utf-8")
+    pass
 
 #####################################################################################################################
 #Cross-Site Scripting(XSS)
@@ -37,11 +52,17 @@ def run_wapiti_Cross_site_scripting_XSS(target_url, url_folder):
 
 def run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder):
     xsstrike_path = os.path.join(app.root_path, "XSStrike", "xsstrike.py")
-    output = subprocess.check_output(["python3", xsstrike_path, "-u", target_url, "--crawl"])
-    outfile = os.path.join(url_folder, "XSS_xsstrike.txt")
-    with open(outfile, "wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
+    try:
+        output=subprocess.check_output(["python3", xsstrike_path, "-u", target_url, "--crawl"])
+        outfile = os.path.join(url_folder, "XSS_xsstrike.txt")
+        with open(outfile, "wb") as f:
+            f.write(output)
+        return output.decode("utf-8")
+    except subprocess.CalledProcessError as e:
+        print("Error:", e)
+        output=None            
+        return output.decode("utf-8")
+    pass
 
 #####################################################################################################################
 #SQL Injection
@@ -49,12 +70,8 @@ def run_sqlmap_SQL_Injection(target_url, url_folder):
     return "SQL Injection"
 
 def run_dsss_SQL_Injection(target_url, url_folder):
-    dsss_path= os.path.join(app.root_path,"DSSS","dsss.py")
-    output=subprocess.check_output(["python3",dsss_path, "-u","https://alfeker.net/library.php?catid=95"]) #this requierd new url ending with e.g:listproducts.php?cat=1 so we will put the result of katana here and test all the directoryes
-    outfile = os.path.join(url_folder, "SQL_injection_dsss.txt")
-    with open(outfile, "wb") as f:
-        f.write(output)
-    return output.decode("utf-8")
+    return "SQL Injection"
+
 
 #####################################################################################################################
 #XML External Entity (XXE)
@@ -104,22 +121,20 @@ def Homepage():
 
 @app.route("/results", methods=["POST"])  
 def results():
-
+    selected_attacks = request.form.getlist("attacks[]")
     target_url = request.form["target_url"]
     url_folder = os.path.join(app.root_path, "scans", target_url)
     os.makedirs(url_folder, exist_ok=True)  
 
-    #broken access control
-    gobuster_output = run_gobuster_Broken_Access_Control(target_url, url_folder)
-    katana_output=katana_Broken_Access_Control(target_url, url_folder)
+    results = {}
+    for attack in selected_attacks:
+        if attack == "Broken Access Control":
+            results[attack + " (gobuster)"] = gobuster(target_url, url_folder)
+            results[attack + " (katana)"] = katana(target_url, url_folder)
+        elif attack == "Cross-Site Scripting (XSS)":
+            results[attack] = run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder)
 
-    #XSS
-    xsstrike_output = run_xsstrike_Cross_site_scripting_XSS(target_url, url_folder)
-
-    #SQL injection
-    # dsss_output=run_dsss_SQL_Injection(target_url, url_folder)
-
-    return render_template("results.html", target_url=target_url, katana_output=katana_output,gobuster_output=gobuster_output, xsstrike_output=xsstrike_output)#dsss_output=dsss_output
+    return render_template("results.html", target_url=target_url, results=results)
 
 if __name__ == "__main__":
    app.run(debug=True, port=5000)
