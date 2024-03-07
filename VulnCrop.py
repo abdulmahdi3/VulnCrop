@@ -4,7 +4,7 @@ from itertools import count
 from flask import Flask, render_template, request, redirect, url_for
 
 
-#pip install wapiti3 #usning this tool in xss and xxe
+#pip install wapiti3 #useing this tool in xss and xxe
 
 app = Flask(__name__, template_folder="templates")
 
@@ -12,6 +12,10 @@ def ensure_trailing_slash(target_url):
     if not target_url.endswith('/'):
         target_url += '/'
     return target_url
+
+def run_function():
+    # Your function code goes here
+    print("Function running...")
 
 #####################################################################################################################
 #Broken Access Control
@@ -31,20 +35,22 @@ def gobuster(target_url, url_folder):
     pass
     
 
-def katana(target_url, url_folder): 
-    ensure_trailing_slash(target_url)
-    try:
-        output=subprocess.check_output(["katana", "-u" ,target_url,"|","grep","?"])
-        outfile = os.path.join(url_folder,"Broken_Access_katana.txt")
-        with open(outfile,"wb") as f:
-            f.write(output)
-        return output.decode("utf-8")
-
-    except subprocess.CalledProcessError as e:
-        print("Error:", e)
-        output=None            
-        return output.decode("utf-8")
-    pass
+def katana(target_url, url_folder, run_function):
+    target_url = ensure_trailing_slash(target_url)
+    if run_function:
+        try:
+            output = subprocess.check_output(["katana", "-u", target_url, "|", "grep", "?"])
+            outfile = os.path.join(url_folder, "Broken_Access_katana.txt")
+            with open(outfile, "wb") as f:
+                f.write(output)
+            return output.decode("utf-8")
+        except subprocess.CalledProcessError as e:
+            print("Error:", e)
+            output = None
+            return output.decode("utf-8") if output else None
+    else:
+        # Checkbox was not checked, continue without running the function
+        pass
 
 #####################################################################################################################
 #Cross-Site Scripting(XSS)
@@ -127,7 +133,7 @@ def Homepage():
 def AttacksPage():
     if request.method == "POST":
         # Process the form data and perform the scan
-        selected_attacks = request.form.getlist("attacks[]")
+        selected_attacks = request.form.getlist("attacks")
         target_url = request.form["target_url"]
         url_folder = os.path.join(app.root_path, "scans", target_url)
         os.makedirs(url_folder, exist_ok=True)  
