@@ -1,0 +1,6 @@
+Damn Small SQLi Scanner (DSSS) < 100 LoC (Lines of Code) #v0.3b
+ by: Miroslav Stampar (@stamparm)
+
+* scanning GET parameter 'catid'
+
+scan results: no vulnerabilities found
