@@ -4,17 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XSStrike Results</title>
-    <link rel="stylesheet" href="results.css">
+    <title>Results</title>
+    <!-- <link rel="stylesheet" href="./style/results.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap');
+
+        ::selection {
+            color: #19123c;
+            background: #15F5BA;
+        }
+
+        :root {
+            --input-color: #15F5BA;
+            --input-border: #836FFF;
+            --input-background: #100b26;
+            --input-placeholder: #826fff48;
+
+            --input-border-focus: #15F5BA;
+
+            --group-color: var(--input-color);
+            --group-border: var(--input-border);
+            --group-background: #836FFF;
+
+            --group-color-focus: #19123c;
+            --group-border-focus: var(--input-border-focus);
+            --group-background-focus: #15F5BA;
+        }
+
+        .mobile-message,
+        .bye-bye {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px),
+        (max-height: 400px) {
+            body>*:not(.mobile-message, .bye-bye) {
+                display: none !important;
+            }
+
+            .mobile-message {
+                display: block;
+                text-align: center;
+                color: #15F5BA;
+                text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
+                font-size: 1.5em;
+                margin-top: 20px;
+            }
+
+            .bye-bye {
+                display: block;
+                text-align: center;
+                color: #19123c;
+                font-family: inherit;
+                box-shadow: 0 0 20px #15F5BA;
+                font-size: 1.5em;
+                border-radius: 10px;
+                padding: 10px 15px;
+                background-color: #15F5BA;
+                border: #222224 solid 1px;
+                margin-top: 20px;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+
+            &:before,
+            &:after {
+                box-sizing: border-box;
+            }
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Anton", sans-serif;
+            font-weight: 100;
+            letter-spacing: 0.4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #19123c;
+            height: 100%;
+        }
+
+        .word {
+            color: #15F5BA;
+            margin-bottom: 20px;
+            font-size: 4em;
+            letter-spacing: 2px;
+            text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
+        }
+
+        .results-container {
+            padding: 10px 20px;
+            background-color: #100b26;
+            border: 1px solid var(--group-border-focus);
+            color: var(--input-color);
+            border-radius: 15px;
+            margin: 10px;
+            transition: ease 0.5s;
+            cursor: pointer;
+        }
+
+        .results-container:hover {
+            box-shadow: 0 0 20px #836FFF;
+            transition: ease 0.4s;
+            border: 1px solid #836FFF ;
+        }
+
+        .attack-name {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Selected Attacks</h1>
-    <ul>
+    <div class="word">Selected Attacks</div>
+    <ol>
         {% for attack, result in results.items() %}
-        <li><b>{{ attack }}</b>:<pre>{{ result }}</pre></li>
+        <div class="results-container">
+            <div class="attack-name" onclick="toggleResult(this)">
+                <li>{{ attack }}</li>
+            </div>
+            <pre style="display:none;">{{ result }}</pre>
+        </div>
         {% endfor %}
-    </ul>
+    </ol>
+    <p class="mobile-message">This website is only compatible with computer. Please access it using a computer.</p>
+    <button class="bye-bye">I Will Buy a PC</button>
+    <script>
+        function toggleResult(element) {
+            var preElement = element.nextElementSibling;
+            if (preElement.style.display === "none") {
+                preElement.style.display = "block";
+            } else {
+                preElement.style.display = "none";
+            }
+        }
+    </script>
+
 </body>
 
 </html>

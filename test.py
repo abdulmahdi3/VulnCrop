@@ -58,7 +58,7 @@ def xsstrike(target_url, url_folder,selected_attacks):
 def homepage():
     if request.method == "POST":
         return redirect(url_for('attacks_page'))
-    return render_template("Homepage.html")
+    return render_template("homepage.html")
 
 @app.route("/attacks", methods=["GET","POST"])
 def attacks_page():
