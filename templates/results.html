@@ -5,96 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XSStrike Results</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #6e6e6e;
-
-        }
-
-        h1 {
-            color: #2a2a2a;
-            text-shadow: 1px 1px #1abcb4;
-            font-size: 3em;
-            padding: 10px;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            text-align: center;
-        }
-
-        .output-container {
-            padding: 20px;
-            background-color: #959595;
-            border: 1px solid #353535;
-            border-radius: 15px;
-            margin: 1% 5%;
-        }
-
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        summary {
-            color: #2a2a2a;
-            cursor: pointer;
-            margin-bottom: 5px;
-            font-size: 20px;
-            transition: ease 0.3s;
-        }
-
-        summary:hover {
-            text-shadow: 1px 1px 10px #eaeaea;
-
-        }
-
-        .buttons {
-            margin-left: 70%;
-            display: flex;
-            color: #1abcb4;
-            justify-content: space-evenly;
-        }
-
-        button {
-            cursor: pointer;
-            background-color: #959595;
-            border: #1abcb4 solid 2px;
-            border-radius: 15px;
-            padding: 8px;
-            font-size: 25px;
-            transition: ease 0.3s;
-        }
-
-        .buttons :hover {
-            box-shadow: 2px 2px 15px #1abcb4;
-        }
-
-        .scrollable-content {
-            max-height: 300px;
-            overflow-y: auto;
-            padding: 8px;
-            border: 2px solid #353535;
-            border-radius: 15px;
-            margin: 5px 0;
-            font-size: 15px;
-        }
-
-        details {
-            padding-top: 5px;
-        }
-
-        .tool-name {
-            color: #2a2a2a;
-            font-size: 1.6em;
-            padding: 1px;
-        }
-    </style>
+    <link rel="stylesheet" href="results.css">
 </head>
 
 <body>
     <h1>Selected Attacks</h1>
     <ul>
-        {% for attack in selected_attacks %}
-            <li>{{ attack }}</li>
+        {% for attack, result in results.items() %}
+        <li><b>{{ attack }}</b>:<pre>{{ result }}</pre></li>
         {% endfor %}
     </ul>
 </body>
