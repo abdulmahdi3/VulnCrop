@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VulnCrop</title>
     <!-- <link rel="stylesheet" href="./style/homepage.css"> -->
+    <link rel="stylesheet" href="./fontawesome-free-5.15.4-web/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap');
@@ -33,14 +34,11 @@
         }
 
         .form-field {
-            display: block;
-            width: 100%;
-            padding: 8px 16px;
-            line-height: 25px;
+            width: 400px;
+            padding: 12px 20px;
             font-size: 1.5em;
-            font-weight: 300;
             font-family: inherit;
-            border-radius: 6px;
+            border-radius: 0.6em;
             color: var(--input-color);
             border: 1px solid var(--input-border);
             background: var(--input-background);
@@ -56,64 +54,6 @@
             }
         }
 
-        .form-group {
-            position: relative;
-            display: flex;
-            width: 100%;
-
-
-            &>span,
-            .form-field {
-                white-space: nowrap;
-                display: block;
-
-                &:not(:first-child):not(:last-child) {
-                    border-radius: 0;
-                }
-
-                &:first-child {
-                    border-radius: 6px 0 0 6px;
-                }
-
-                &:last-child {
-                    border-radius: 0 6px 6px 0;
-                }
-
-                &:not(:first-child) {
-                    margin-left: -1px;
-                }
-            }
-
-            .form-field {
-                position: relative;
-                z-index: 1;
-                flex: 1 1 auto;
-                width: 1%;
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-
-            &>span {
-                text-align: center;
-                padding: 12px 8px;
-                font-size: 1.5em;
-                line-height: 1.2em;
-                color: var(--group-color);
-                background: var(--group-background);
-                border: 2px solid var(--group-border);
-                transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
-            }
-
-            &:focus-within {
-
-                &>span {
-                    color: var(--group-color-focus);
-                    background: var(--group-background-focus);
-                    border-color: var(--group-border-focus);
-                }
-            }
-        }
-
         .scan {
             cursor: pointer;
             background-color: #836FFF;
@@ -122,7 +62,7 @@
             font-size: 1.5em;
             margin-left: 4px;
             border: #836FFF solid 1px;
-            border-radius: 0px 8px 8px 0px;
+            border-radius: 0.6em;
             transition: ease 0.2s;
         }
 
@@ -161,7 +101,7 @@
                 font-family: inherit;
                 box-shadow: 0 0 20px #15F5BA;
                 font-size: 1.5em;
-                border-radius: 10px;
+                border-radius: 0.6em;
                 padding: 10px 15px;
                 background-color: #15F5BA;
                 border: #222224 solid 1px;
@@ -179,7 +119,6 @@
         }
 
         body {
-            min-height: 100vh;
             font-family: "Anton", sans-serif;
             font-weight: 100;
             letter-spacing: 0.4px;
@@ -244,12 +183,10 @@
             transform: translateX(1.5em);
         }
 
-        .cert,
-        .cert2 {
+        .cert {
             display: flex;
             align-items: center;
             cursor: pointer;
-            margin-top: 10px;
         }
 
         .SSL {
@@ -260,18 +197,28 @@
 
         .word {
             color: #15F5BA;
-            margin-bottom: 20px;
+            margin: 20px;
             font-size: 4em;
             letter-spacing: 2px;
             text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
         }
 
-        .authority-alert {
+        /* .authority-alert {
             color: #F0F3FF;
             font-size: 14px;
             font-weight: 100;
             display: none;
             font-family: "Antonio", sans-serif;
+        } */
+
+        .disclaimer {
+            color: #F0F3FF;
+            font-size: 16px;
+            font-weight: 100;
+            letter-spacing: 1px;
+            font-family: "Antonio", sans-serif;
+            text-align: center;
+
         }
 
         @supports(-webkit-appearance: none) or (-moz-appearance: none) {
@@ -366,7 +313,7 @@
 
             input[type='checkbox'] {
                 &:not(.switch) {
-                    border-radius: 7px;
+                    border-radius: 0.6em;
 
                     &:after {
                         width: 5px;
@@ -386,124 +333,199 @@
             }
         }
 
-        h5 {
-            font-family: "Antonio", sans-serif;
-            color: #826fff89;
-        }
-
-        ul {
-            padding: 0;
+        .checkboxes ul {
             list-style: none;
-            width: 100%;
-            max-width: 900px;
-            /* Adjust max-width according to your needs */
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-
-            li {
-                margin: 16px 0;
-                position: relative;
-            }
         }
 
-        .left-column,
-        .right-column {
-            width: calc(50% - 10px);
-            /* Adjust width and margin according to your needs */
+        .checkboxes li {
+            flex-basis: 50%;
+            margin-bottom: 10px;
         }
 
-        .left-column>li,
-        .right-column>li {
-            margin: 16px 0;
+
+        .tab {
+            margin: 25px;
+            overflow: hidden;
+        }
+
+        .tab button {
+            cursor: pointer;
+            margin: 15px;
+            --green: #15dfa9;
+            font-size: 18px;
+            padding: 0.7em 2.7em;
+            letter-spacing: 0.06em;
             position: relative;
+            font-family: inherit;
+            border-radius: 0.6em;
+            overflow: hidden;
+            transition: all 0.3s;
+            line-height: 1.4em;
+            border: 2px solid var(--green);
+            background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 253, 156, 0.1) 100%);
+            color: var(--green);
+            box-shadow: inset 0 0 10px rgba(27, 253, 155, 0.698), 0 0 9px 3px rgba(27, 253, 156, 0.1);
         }
 
-        @media only screen and (max-width: 768px) {
-
-            .left-column,
-            .right-column {
-                width: 100%;
-            }
-        }
-
-        .checkboxes {
+        .tab button:before {
+            content: "";
             position: absolute;
-            margin-top: 40%;
+            left: -4em;
+            width: 4em;
+            height: 100%;
+            top: 0;
+            transition: transform .4s ease-in-out;
+            background: linear-gradient(to right, transparent 1%, rgba(27, 253, 156, 0.1) 40%, rgba(27, 253, 156, 0.1) 60%, transparent 100%);
+        }
+
+        .tab button:hover {
+            color: #00ffbb;
+            box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.6), 0 0 9px 3px rgba(27, 253, 156, 0.2);
+        }
+
+        .tab button:hover:before {
+            transform: translateX(15em);
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+        }
+
+        .checkboxes label {
+            color: #836FFF;
+            /* Change label text color */
+            margin-left: 5px;
+            /* Adjust margin for spacing */
         }
     </style>
 </head>
 
 <body>
-    <div class="word">VulnCrop</div>
+    <div class="word" id="myword">VulnCrop</div>
+    <div class="tab">
+        <button class="tablinks " onclick="urlform(event, 'URL')"><i class="fa fa-link"
+                style="margin-right: 5px;"></i>URL</button>
+        <button class="tablinks" onclick="urlform(event, 'Authority')"><i class="fa fa-user-lock"
+                style="margin-right: 5px;"></i>Authority</button>
+        <button class="tablinks" onclick="urlform(event, 'Attacks')"><i class="fa fa-bomb"
+                style="margin-right: 5px;"></i>Attacks</button>
+    </div>
     <form method="POST" action="/attacks" class="form-group" id="scanForm">
-        <span>http://</span>
-        <input class="form-field" id="targetUrl" name="target_url" placeholder="Domain.com" required>
-        <input type="submit" value="Scan" class="scan">
-        <div class="checkboxes">
-            <input id="c1" type="checkbox" name="attacks" value="Broken Access Control">
-            <label for="c1">Broken Access Control</label>
-            <input id="c2" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">
-            <label for="c2">Cross-Site Scripting (XSS)</label>
-            <input id="c3" type="checkbox" name="attacks" value="Broken Access Control">
-            <label for="c3">Broken Access Control</label>
-            <input id="c4" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">
-            <label for="c4">Cross-Site Scripting (XSS)</label>
-            <input id="c5" type="checkbox" name="attacks" value="Broken Access Control">
-            <label for="c5">Broken Access Control</label>
-            <input id="c6" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">
-            <label for="c6">Cross-Site Scripting (XSS)</label>
-            <input id="c7" type="checkbox" name="attacks" value="Broken Access Control">
-            <label for="c7">Broken Access Control</label>
-            <input id="c8" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">
-            <label for="c8">Cross-Site Scripting (XSS)</label>
+        <div class="tabcontent" id="URL">
+            <input type="url" class="form-field" id="targetUrl" name="target_url" placeholder="https://example.com"
+                required>
+        </div>
+        <div class="tabcontent" id="Authority">
+            <div class="cert">
+                <label class="switch">
+                    <input type="checkbox" id="auth">
+                    <span class="slider"></span>
+                </label>
+                <span class="SSL">I'm <span style="color: #15F5BA;">Authorized</span> to Test.</span>
+            </div>
+            <p class="disclaimer">Please note that by proceeding with this action, you confirm that you are authorized
+                to access and use
+                the resources provided. Unauthorized access may lead to legal consequences.
+            </p>
+            <!-- <p class="authority-alert"><span style="color: #15F5BA;">*</span>Please make sure to check the authority
+                checkbox.
+            </p> -->
+        </div>
+        <div class="checkboxes tabcontent" id="Attacks">
+            <ul>
+                <li>
+                    <label for="c1">
+                        <input id="c1" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
+                        Control</label>
+                </li>
+                <li>
+                    <label for="c2">
+                        <input id="c2" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">Cross-Site
+                        Scripting (XSS)</label>
+                </li>
+                <li>
+                    <label for="c3">
+                        <input id="c3" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
+                        Control</label>
+                </li>
+                <li>
+                    <label for="c4">
+                        <input id="c4" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">Cross-Site
+                        Scripting (XSS)</label>
+                </li>
+                <li>
+                    <label for="c5">
+                        <input id="c5" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
+                        Control</label>
+                </li>
+                <li>
+                    <label for="c6">
+                        <input id="c6" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">Cross-Site
+                        Scripting (XSS)</label>
+                </li>
+                <li>
+                    <label for="c7">
+                        <input id="c7" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
+                        Control</label>
+                </li>
+                <li>
+                    <label for="c8">
+                        <input id="c8" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">Cross-Site
+                        Scripting (XSS)</label>
+                </li>
+            </ul>
+            <input type="submit" value="Scan" class="scan">
         </div>
     </form>
-    <div class="cert">
-        <label class="switch">
-            <input type="checkbox">
-            <span class="slider"></span>
-        </label>
-        <span class="SSL">Website has <span style="color: #15F5BA;">SSL</span> Certificate.</span>
-    </div>
-    <div class="cert2">
-        <label class="switch">
-            <input type="checkbox" id="auth">
-            <span class="slider"></span>
-        </label>
-        <span class="SSL">I'm <span style="color: #15F5BA;">Authorized</span> to Test.</span>
-    </div>
-    <p class="authority-alert"><span style="color: #15F5BA;">*</span>Please make sure to check the authority checkbox.
-    </p>
     <p class="mobile-message">This website is only compatible with computer. Please access it using a computer.</p>
     <button class="bye-bye">I Will Buy a PC</button>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
-    const cert = document.querySelector('.cert');
-    cert.addEventListener('click', () => {
-        const input = cert.querySelector('input');
-        input.checked = !input.checked;
+    function urlform(evt, tab) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.color = "#808080"; // Set color to gray for all tabs
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tab).style.display = "block";
+        evt.currentTarget.style.color = "#15F5BA"; // Set color to original for the clicked tab
+        evt.currentTarget.className += " active";
+    }
+
+    $(document).ready(function () {
+        $(".tablinks:first").css("color", "#15F5BA").addClass("active"); // Set color to original for the default tab
+        $(".tablinks:first").click();
     });
 
-    const cert2 = document.querySelector('.cert2');
-    cert2.addEventListener('click', () => {
-        const input2 = cert2.querySelector('input');
+
+    const cert = document.querySelector('.cert');
+    cert.addEventListener('click', () => {
+        const input2 = cert.querySelector('input');
         input2.checked = !input2.checked;
     });
 
-    const form = document.querySelector('form');
-    const authCheckbox = document.getElementById('auth');
-    const authorityAlert = document.querySelector('.authority-alert');
+    // const form = document.querySelector('form');
+    // const authCheckbox = document.getElementById('auth');
+    // const authorityAlert = document.querySelector('.authority-alert');
 
-    form.addEventListener('submit', e => {
-        if (!authCheckbox.checked) {
-            e.preventDefault();
-            authorityAlert.style.display = 'block';
-            
-        }
-    });
+    // form.addEventListener('submit', e => {
+    //     if (!authCheckbox.checked) {
+    //         e.preventDefault();
+    //         authorityAlert.style.display = 'block';
+
+    //     }
+    // });
 
 </script>
 

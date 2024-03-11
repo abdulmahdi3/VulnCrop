@@ -77,7 +77,6 @@
         }
 
         body {
-            min-height: 100vh;
             font-family: "Anton", sans-serif;
             font-weight: 100;
             letter-spacing: 0.4px;
@@ -86,64 +85,210 @@
             align-items: center;
             flex-direction: column;
             background: #19123c;
+            width: 100%;
             height: 100%;
+            perspective: 900;
+            overflow-y: scroll;
         }
 
         .word {
             color: #15F5BA;
-            margin-bottom: 20px;
+            margin: 20px;
             font-size: 4em;
             letter-spacing: 2px;
             text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
         }
 
-        .results-container {
+        .accordion-menu {
+            min-width: 700px;
             padding: 10px 20px;
-            background-color: #100b26;
-            border: 1px solid var(--group-border-focus);
-            color: var(--input-color);
-            border-radius: 15px;
-            margin: 10px;
-            transition: ease 0.5s;
+            border-radius: 5px;
+        }
+
+        h2 {
+            font-size: 20px;
+            line-height: 34px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            display: block;
+            margin: 0;
             cursor: pointer;
+            color: #15F5BA;
         }
 
-        .results-container:hover {
-            box-shadow: 0 0 20px #836FFF;
-            transition: ease 0.4s;
-            border: 1px solid #836FFF ;
+        pre {
+            color: #15F5BA;
+            font-size: 15px;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            opacity: 1;
+            transform: translate(0, 0);
+            margin-top: 14px;
+            z-index: 2;
         }
 
-        .attack-name {
-            text-decoration: underline;
+        ul {
+            list-style: none;
+            padding: 0 20px 10px;
+            margin: 0;
+            background-color: #100b26;
+            border: #836FFF solid 1px;
+            border-radius: 5px;
+            box-shadow: #836FFF70 0px 5px 15px;
+        }
+
+        ul li {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            padding-bottom: 4px;
+            padding-top: 18px;
+            border-top: 1px double #836FFF50;
+        }
+
+        ul li:nth-child(1) {
+            border: none;
+        }
+
+        ul li:nth-of-type(1) {
+            animation-delay: 0.5s;
+        }
+
+        ul li:nth-of-type(2) {
+            animation-delay: 0.75s;
+        }
+
+        ul li:nth-of-type(3) {
+            animation-delay: 1s;
+        }
+
+        ul li:last-of-type {
+            padding-bottom: 0;
+        }
+
+        ul li .arrow {
+            position: absolute;
+            transform: translate(-6px, 0);
+            margin-top: 16px;
+            right: 0;
+        }
+
+        ul li .fas {
+            color: #15F5BA;
+            font-size: 15px;
+            margin-right: 10px;
+        }
+
+        ul li .arrow:before,
+        ul li .arrow:after {
+            content: "";
+            position: absolute;
+            background-color: #15F5BA;
+            width: 3px;
+            height: 9px;
+        }
+
+        ul li .arrow:before {
+            transform: translate(-2px, 0) rotate(45deg);
+        }
+
+        ul li .arrow:after {
+            transform: translate(2px, 0) rotate(-45deg);
+        }
+
+        ul li input[type=checkbox] {
+            position: absolute;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        ul li input[type=checkbox]:checked~pre {
+            margin-top: 0;
+            max-height: 0;
+            opacity: 0;
+            transform: translate(0, 50%);
+        }
+
+        ul li input[type=checkbox]:checked~.arrow:before {
+            transform: translate(2px, 0) rotate(45deg);
+        }
+
+        ul li input[type=checkbox]:checked~.arrow:after {
+            transform: translate(-2px, 0) rotate(-45deg);
+        }
+
+        .transition,
+        pre,
+        ul li .arrow:before,
+        ul li .arrow:after {
+            transition: all 0.25s ease;
+        }
+
+        .flipIn,
+        h1,
+        ul li {
+            animation: flipdown 0.5s ease both;
+        }
+
+        .no-select,
+        h2 {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
+        }
+
+        @keyframes flipdown {
+            0% {
+                opacity: 0;
+                transform-origin: top center;
+                transform: rotateX(-90deg);
+            }
+
+            5% {
+                opacity: 1;
+            }
+
+            80% {
+                transform: rotateX(8deg);
+            }
+
+            83% {
+                transform: rotateX(6deg);
+            }
+
+            92% {
+                transform: rotateX(-3deg);
+            }
+
+            100% {
+                transform-origin: top center;
+                transform: rotateX(0deg);
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="word">Selected Attacks</div>
-    <ol>
-        {% for attack, result in results.items() %}
-        <div class="results-container">
-            <div class="attack-name" onclick="toggleResult(this)">
-                <li>{{ attack }}</li>
-            </div>
-            <pre style="display:none;">{{ result }}</pre>
-        </div>
-        {% endfor %}
-    </ol>
+    <div class="word">VulnCrop</div>
+    <div class="accordion-menu">
+        <ul>
+            {% for attack, result in results.items() %}
+            <li>
+                <input type="checkbox" checked>
+                <i class="arrow"></i>
+                <h2>{{ attack }}</h2>
+                <pre>{{ result }}
+                </pre>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     <p class="mobile-message">This website is only compatible with computer. Please access it using a computer.</p>
     <button class="bye-bye">I Will Buy a PC</button>
-    <script>
-        function toggleResult(element) {
-            var preElement = element.nextElementSibling;
-            if (preElement.style.display === "none") {
-                preElement.style.display = "block";
-            } else {
-                preElement.style.display = "none";
-            }
-        }
-    </script>
 
 </body>
 
