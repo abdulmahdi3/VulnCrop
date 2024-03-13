@@ -2,10 +2,10 @@
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     https://weblatte.org
+[+] Url:                     https://weblatte.org/
 [+] Method:                  GET
 [+] Threads:                 10
-[+] Wordlist:                /Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt
+[+] Wordlist:                /Users/mahdihussnie/Desktop/VulnCrop/wordlists/fasttrack.txt
 [+] Negative Status codes:   404
 [+] User Agent:              gobuster/3.6
 [+] Timeout:                 10s
