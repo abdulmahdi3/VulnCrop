@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VulnCrop</title>
+    <!-- <link rel="stylesheet" href="./style/homepage.css"> -->
+    <link rel="stylesheet" href="./fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='hi.png') }}" type="image/x-icon">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap');
+
+        ::selection {
+            color: #100b26;
+            background: #15F5BA;
+        }
+
+        :root {
+            --input-color: #15F5BA;
+            --input-border: #836FFF;
+            --input-background: #100b26;
+            --input-placeholder: #826fff48;
+
+            --input-border-focus: #15F5BA;
+
+            --group-color: var(--input-color);
+            --group-border: var(--input-border);
+            --group-background: #836FFF;
+
+            --group-color-focus: #100b26;
+            --group-border-focus: var(--input-border-focus);
+            --group-background-focus: #15F5BA;
+        }
+
+        .form-field {
+            width: 400px;
+            padding: 12px 20px;
+            font-size: 1.5em;
+            font-family: inherit;
+            border-radius: 0.6em;
+            color: var(--input-color);
+            border: 1px solid var(--input-border);
+            background: var(--input-background);
+            transition: 0.3s ease;
+            box-shadow: inset 0 0 10px #826fff, 0 0 9px 3px #826fff4b;
+
+
+            &::placeholder {
+                color: var(--input-placeholder);
+            }
+
+            &:focus {
+                outline: none;
+                border-color: var(--input-border-focus);
+                box-shadow: inset 0 0 10px #15F5BA, 0 0 9px 3px #15F5BA4b;
+
+            }
+        }
+
+        .scan {
+            cursor: pointer;
+            padding: 100px;
+            background-color: #836FFF;
+            color: #15F5BA;
+            font-family: inherit;
+            font-size: 7em;
+            margin-left: 4px;
+            border: #836FFF solid 1px;
+            border-radius: 0.6em;
+            transition: ease 0.2s;
+        }
+
+        .scan:hover {
+            transition: ease 0.3s;
+            color: var(--group-color-focus);
+            background: var(--group-background-focus);
+            border-color: var(--group-border-focus);
+            box-shadow: 0 0 20px #15F5BA;
+
+
+        }
+
+        .mobile-message,
+        .bye-bye {
+            display: none;
+        }
+
+        @media only screen and (max-width: 768px),
+        (max-height: 400px) {
+            body>*:not(.mobile-message, .bye-bye) {
+                display: none !important;
+            }
+
+            .mobile-message {
+                display: block;
+                text-align: center;
+                color: #15F5BA;
+                text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
+                font-size: 1.5em;
+                margin-top: 20px;
+            }
+
+            .bye-bye {
+                display: block;
+                text-align: center;
+                color: #100b26;
+                font-family: inherit;
+                box-shadow: 0 0 20px #15F5BA;
+                font-size: 1.5em;
+                border-radius: 0.6em;
+                padding: 10px 15px;
+                background-color: #15F5BA;
+                border: #222224 solid 1px;
+                margin-top: 20px;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+
+            &:before,
+            &:after {
+                box-sizing: border-box;
+            }
+        }
+
+        body {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: "Anton", sans-serif;
+            font-weight: 100;
+            letter-spacing: 0.4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #100b26;
+            height: 100%;
+
+            .form-group {
+                max-width: 500px;
+
+                &:not(:last-child) {
+                    margin-bottom: 32px;
+                }
+            }
+        }
+
+        .switch {
+            font-size: 17px;
+            position: relative;
+            display: inline-block;
+            width: 3.5em;
+            height: 2em;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            border: 2px solid #836FFF;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 1.4em;
+            width: 1.4em;
+            left: 0.2em;
+            bottom: 0.2em;
+            background-color: #836FFF;
+            border-radius: inherit;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .switch input:checked+.slider {
+            box-shadow: 0 0 10px #15F5BA;
+            border: 2px solid #836FFF;
+            background-color: #15F5BA;
+        }
+
+        .switch input:checked+.slider:before {
+            transform: translateX(1.5em);
+        }
+
+        .cert {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .SSL {
+            margin-left: 10px;
+            font-size: 1.3em;
+            color: #836FFF;
+        }
+
+        .word {
+            color: #15F5BA;
+            margin: 20px;
+            font-size: 4em;
+            letter-spacing: 2px;
+            text-shadow: 5px 2px #222224, 2px 4px #222224, 3px 5px #222224;
+        }
+
+        /* .authority-alert {
+            color: #F0F3FF;
+            font-size: 14px;
+            font-weight: 100;
+            display: none;
+            font-family: "Antonio", sans-serif;
+        } */
+
+        .disclaimer {
+            color: #beb4ff;
+            font-size: 16px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-family: "Antonio", sans-serif;
+            text-align: center;
+
+        }
+
+        @supports(-webkit-appearance: none) or (-moz-appearance: none) {
+            input[type='checkbox'] {
+                --active: #15F5BA;
+                --active-inner: #100b26;
+                --focus: 1px #15F5BA;
+                --border: #836FFF;
+                --border-hover: #15F5BA;
+                --background: #100b26;
+                --disabled: #c8c8c8;
+                --disabled-inner: #b7b7b7;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                height: 21px;
+                outline: none;
+                display: inline-block;
+                vertical-align: top;
+                position: relative;
+                margin: 0;
+                cursor: pointer;
+                border: 1px solid var(--bc, var(--border));
+                background: var(--b, var(--background));
+                transition: background .3s, border-color .3s, box-shadow .2s;
+
+                &:after {
+                    content: '';
+                    display: block;
+                    left: 0;
+                    top: 0;
+                    position: absolute;
+                    transition: transform var(--d-t, .3s) var(--d-t-e, ease), opacity var(--d-o, .2s);
+                }
+
+                &:checked {
+                    --b: var(--active);
+                    --bc: var(--active);
+                    --d-o: .3s;
+                    --d-t: .6s;
+                    --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
+                }
+
+                &:disabled {
+                    --b: var(--disabled);
+                    cursor: not-allowed;
+                    opacity: .9;
+
+                    &:checked {
+                        --b: var(--disabled-inner);
+                        --bc: var(--border);
+                    }
+
+                    &+label {
+                        cursor: not-allowed;
+                    }
+                }
+
+                &:hover {
+                    &:not(:checked) {
+                        &:not(:disabled) {
+                            --bc: var(--border-hover);
+                        }
+                    }
+                }
+
+                &:focus {
+                    box-shadow: 0 0 0 var(--focus);
+                }
+
+                &:not(.switch) {
+                    width: 21px;
+
+                    &:after {
+                        opacity: var(--o, 0);
+                    }
+
+                    &:checked {
+                        --o: 1;
+                    }
+                }
+
+                &+label {
+                    font-size: 1.5em;
+                    color: #836FFF;
+                    line-height: 21px;
+                    display: inline-block;
+                    vertical-align: top;
+                    cursor: pointer;
+                    margin-left: 4px;
+                }
+            }
+
+            input[type='checkbox'] {
+                &:not(.switch) {
+                    border-radius: 0.6em;
+
+                    &:after {
+                        width: 5px;
+                        height: 9px;
+                        border: 2px solid var(--active-inner);
+                        border-top: 0;
+                        border-left: 0;
+                        left: 7px;
+                        top: 4px;
+                        transform: rotate(var(--r, 20deg));
+                    }
+
+                    &:checked {
+                        --r: 43deg;
+                    }
+                }
+            }
+        }
+
+        .checkboxes ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: fit-content;
+        }
+
+        .checkboxes li {
+            flex-basis: 100%;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .checkboxes li input {
+            margin: 6px;
+        }
+
+
+        .tab {
+            margin: 20px;
+            overflow: hidden;
+            background-color: #826fffb6;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px #826fff, 0 0 9px 3px #826fff4b;
+        }
+
+        .tab button {
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            font-size: 18px;
+            padding: 0.7em 2.7em;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+
+        .tab button:hover {
+            background-color: #826fffb1;
+        }
+
+        .tabcontent {
+            margin-top: 20px;
+            display: none;
+            padding: 6px 12px;
+        }
+
+        .checkboxes label {
+            cursor: pointer;
+            color: #836FFF;
+        }
+
+        .bomb-button {
+            position: absolute;
+            left: 65%;
+            top: 50%;
+        }
+
+        .input-div {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #15F5BA;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0px 0px 100px #15F5BA, inset 0px 0px 10px #15F5BA, 0px 0px 5px rgb(255, 255, 255);
+            animation: flicker 1s linear infinite;
+        }
+
+        .icon {
+            color: #15F5BA;
+            font-size: 1.5rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            animation: iconflicker 1s linear infinite;
+        }
+
+        .scan {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer !important;
+        }
+
+        @keyframes flicker {
+            0% {
+                border: 2px solid #15F5BA;
+                box-shadow: 0px 0px 100px #15F5BA, inset 0px 0px 10px #15F5BA, 0px 0px 5px rgb(255, 255, 255);
+            }
+
+            5% {
+                border: none;
+                box-shadow: none;
+            }
+
+            10% {
+                border: 2px solid #15F5BA;
+                box-shadow: 0px 0px 100px #15F5BA, inset 0px 0px 10px #15F5BA, 0px 0px 5px rgb(255, 255, 255);
+            }
+
+            25% {
+                border: none;
+                box-shadow: none;
+            }
+
+            30% {
+                border: 2px solid #15F5BA;
+                box-shadow: 0px 0px 100px #15F5BA, inset 0px 0px 10px #15F5BA, 0px 0px 5px rgb(255, 255, 255);
+            }
+
+            100% {
+                border: 2px solid #15F5BA;
+                box-shadow: 0px 0px 100px #15F5BA, inset 0px 0px 10px #15F5BA, 0px 0px 5px rgb(255, 255, 255);
+            }
+        }
+
+        @keyframes iconflicker {
+            0% {
+                opacity: 1;
+            }
+
+            5% {
+                opacity: 0.2;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            25% {
+                opacity: 0.2;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .loader-wrapper {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #100b26;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-wave {
+            width: 300px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .loading-bar {
+            width: 20px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #15F5BA;
+            border-radius: 5px;
+            animation: loading-wave-animation 1s ease-in-out infinite;
+        }
+
+        .loading-bar:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .loading-bar:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-bar:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes loading-wave-animation {
+            0% {
+                height: 10px;
+            }
+
+            50% {
+                height: 50px;
+            }
+
+            100% {
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="word" id="myword">VulnCrop</div>
+    <div class="tab">
+        <button class="tablinks " onclick="urlform(event, 'URL')"><i class="fa fa-link"
+                style="margin-right: 5px;"></i>URL</button>
+        <button class="tablinks" onclick="urlform(event, 'Authority')"><i class="fa fa-user-lock"
+                style="margin-right: 5px;"></i>Authority</button>
+        <button class="tablinks" onclick="urlform(event, 'Attacks')"><i class="fa fa-bomb"
+                style="margin-right: 5px;"></i>Attacks</button>
+    </div>
+    <form method="POST" action="/attacks" class="form-group" id="scanForm">
+        <div class="tabcontent" id="URL">
+            <input type="url" class="form-field" id="targetUrl" name="target_url" placeholder="https://example.com"
+                required>
+        </div>
+        <div class="tabcontent" id="Authority">
+            <div class="cert">
+                <label class="switch">
+                    <input type="checkbox" id="auth">
+                    <span class="slider"></span>
+                </label>
+                <span class="SSL">I'm <span style="color: #15F5BA;">Authorized</span> to Test.</span>
+            </div>
+            <p class="disclaimer">Please note that by proceeding with this action, you confirm that you are authorized
+                to access and use
+                the resources provided. Unauthorized access may lead to legal consequences.
+            </p>
+            <!-- <p class="authority-alert"><span style="color: #15F5BA;">*</span>Please make sure to check the authority
+                checkbox.
+            </p> -->
+        </div>
+        <div class="checkboxes tabcontent" id="Attacks">
+            <ul>
+                <li>
+                    <label for="c1">
+                        <input id="c1" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
+                        Control</label>
+                </li>
+                <li>
+                    <label for="c2">
+                        <input id="c2" type="checkbox" name="attacks" value="Cross-Site Scripting (XSS)">Cross-Site
+                        Scripting (XSS)</label>
+                </li>
+                <li>
+                    <label for="c3">
+                        <input id="c3" type="checkbox" name="attacks" value="SQL Injection" disabled>SQL
+                        Injection</label>
+                </li>
+                <li>
+                    <label for="c4">
+                        <input id="c4" type="checkbox" name="attacks" value="XML External Entity (XXE)" disabled>XML
+                        External Entity (XXE)</label>
+                </li>
+                <li>
+                    <label for="c5">
+                        <input id="c5" type="checkbox" name="attacks" value="Insecure design" disabled>Insecure
+                        design</label>
+                </li>
+                <li>
+                    <label for="c6">
+                        <input id="c6" type="checkbox" name="attacks" value="Server-Side Request Forgery(SSRF)"
+                            disabled>Server-Side Request Forgery(SSRF)</label>
+                </li>
+                <li>
+                    <label for="c7">
+                        <input id="c7" type="checkbox" name="attacks" value="Cross-Site Request Forgery(CSRF)"
+                            disabled>Cross-Site Request Forgery (CSRF)</label>
+                </li>
+                <li>
+                    <label for="c8">
+                        <input id="c8" type="checkbox" name="attacks" value="File Upload" disabled>File
+                        Upload</label>
+                </li>
+            </ul>
+            <div class="bomb-button">
+                <div class="input-div">
+                    <div class="icon">Scan</div>
+                    <input type="submit" value="Scan" class="scan">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="loader-wrapper">
+        <div class="loading-wave">
+            <div class="loading-bar"></div>
+            <div class="loading-bar"></div>
+            <div class="loading-bar"></div>
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+    <p class="mobile-message">This website is only compatible with computer. Please access it using a computer.</p>
+    <button class="bye-bye">I Will Buy a PC</button>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+    function urlform(evt, tab) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.color = "#100b26"; // Set color to background for all tabs
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tab).style.display = "block";
+        evt.currentTarget.style.color = "#15F5BA"; // Set color to original for the clicked tab
+        evt.currentTarget.className += " active";
+    }
+
+    $(document).ready(function () {
+        $(".tablinks:first").css("color", "#15F5BA").addClass("active"); // Set color to original for the default tab
+        $(".tablinks:first").click();
+    });
+
+
+    const cert = document.querySelector('.cert');
+    cert.addEventListener('click', () => {
+        const input2 = cert.querySelector('input');
+        input2.checked = !input2.checked;
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector('.scan').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Check if URL is entered
+            const targetUrl = document.getElementById('targetUrl').value.trim();
+            if (targetUrl === '') {
+                alert('Please enter a URL');
+                return;
+            }
+
+            // Check if authority checkbox is checked
+            const authCheckbox = document.getElementById('auth');
+            if (!authCheckbox.checked) {
+                alert('Please confirm that you are authorized to test');
+                return;
+            }
+
+            // Check if at least one attack checkbox is checked
+            const attackCheckboxes = document.querySelectorAll('input[name="attacks"]:checked');
+            if (attackCheckboxes.length === 0) {
+                alert('Please select at least one attack');
+                return;
+            }
+            event.currentTarget.form.submit();
+            showLoader();
+        });
+
+        function showLoader() {
+            const loaderWrapper = document.querySelector('.loader-wrapper');
+            loaderWrapper.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Hide scrollbars
+            document.body.childNodes.forEach(node => {
+                if (node.nodeType === 1 && node !== loaderWrapper) { // Check if node is an element and not the loader wrapper
+                    node.style.display = 'none'; // Hide all other elements
+                }
+            });
+        }
+
+    });
+
+
+    // const form = document.querySelector('form');
+    // const authCheckbox = document.getElementById('auth');
+    // const authorityAlert = document.querySelector('.authority-alert');
+
+    // form.addEventListener('submit', e => {
+    //     if (!authCheckbox.checked) {
+    //         e.preventDefault();
+    //         authorityAlert.style.display = 'block';
+
+    //     }
+    // });
+
+</script>
+
+</html>
