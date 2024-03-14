@@ -1,0 +1,21 @@
+===============================================================
+Gobuster v3.6
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     https://uokerbala.edu.iq/en/
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /Users/mahdihussnie/Desktop/VulnCrop/wordlists/wfuzz/general/catala.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.6
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+[2K/antic                (Status: 301) [Size: 0] [--> https://uokerbala.edu.iq/en/anticancer-drug-interaction-with-acid-reducing-agents-and-some-recommendation-to-overcome-this-interaction/]
+[2K/pas                  (Status: 301) [Size: 0] [--> https://uokerbala.edu.iq/en/password-reset/]
+[2K/transit              (Status: 301) [Size: 0] [--> https://uokerbala.edu.iq/en/transitioning-to-clean-energy/]
+
+===============================================================
+Finished
+===============================================================
