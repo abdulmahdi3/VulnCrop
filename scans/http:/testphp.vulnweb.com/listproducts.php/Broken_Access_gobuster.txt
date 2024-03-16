@@ -2,7 +2,7 @@
 Gobuster v3.6
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
-[+] Url:                     https://pentest-ground.com:81/
+[+] Url:                     http://testphp.vulnweb.com/listproducts.php/
 [+] Method:                  GET
 [+] Threads:                 10
 [+] Wordlist:                /usr/local/share/wordlists/dirb/catala.txt
@@ -12,7 +12,6 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
 ===============================================================
 Starting gobuster in directory enumeration mode
 ===============================================================
-[2K/clients              (Status: 200) [Size: 8488]
 
 ===============================================================
 Finished
