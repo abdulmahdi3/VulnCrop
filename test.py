@@ -34,6 +34,9 @@ def attacks_page():
         if attack == "Cross-Site Scripting (XSS)":   
             results[attack + " Dalfox"] = tools.Dalfox(target_url, url_folder, selected_attacks)
             results[attack + " Xsstrike"] = tools.xsstrike(target_url, url_folder, selected_attacks)
+
+        if attack == "SQL Injection":   
+            results[attack + " sqlmap"] = tools.sqlmap(target_url, url_folder, selected_attacks)
         
     return render_template("results.html", selected_attacks=selected_attacks, target_url=target_url,results=results)
 
