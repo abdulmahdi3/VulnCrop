@@ -284,15 +284,21 @@
                 <input type="checkbox" checked>
                 <i class="arrow"></i>
                 <h2>{{ attack }}</h2>
-                <pre>{{ result }}
-                </pre>
+                <pre>{{ result }}</pre>
             </li>
             {% endfor %}
         </ul>
     </div>
-    <p class="mobile-message">This website is only compatible with computer. Please access it using a computer.</p>
-    <button class="bye-bye">I Will Buy a PC</button>
+    <table>
+        <tr>
+            <th>
+                <h2>Total Scanning Time: {{ timing_data["Total"] | round(2) }} Seconds</h2> 
+            </th>
+        </tr>
+    </table>
 
+    <p class="mobile-message">This website is only compatible with a computer. Please access it using a computer.</p>
+    <button class="bye-bye">I Will Buy a PC</button>
 </body>
 
 </html>
