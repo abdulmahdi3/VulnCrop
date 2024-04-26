@@ -1,5 +1,5 @@
 import os, time
-import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools
+import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__, template_folder="templates")        
@@ -26,15 +26,17 @@ def attacks_page():
         if attack == "Broken Access Control":
             results[attack + " Gobuster"] = Functions.broken_access_tools.gobuster(target_url, url_folder, selected_attacks)
             results[attack + " Katana"] = Functions.broken_access_tools.katana(target_url, url_folder, selected_attacks)
-        if attack == "Insecure Design":
-            results[attack + " Dirb"] = Functions.inscure_design_tools.dirb(target_url, url_folder, selected_attacks)
-            results[attack + " Fuff"] = Functions.inscure_design_tools.ffuf(target_url, url_folder, selected_attacks)
-            # results[attack + " Dependency-Check"] = Functions.inscure_design_tools.dependency_check(target_url, url_folder, selected_attacks)
         if attack == "Cross-Site Scripting (XSS)":
             # results[attack + " Dalfox"] = Functions.xss_tools.Dalfox(target_url, url_folder, selected_attacks)
             results[attack + " xsstrike"] = Functions.xss_tools.xsstrike(target_url, url_folder, selected_attacks)
         if attack == "SQL Injection":
             results[attack + " sqlmap"] = Functions.sql_tools.sqlmap(target_url, url_folder, selected_attacks)
+        if attack == "XML External Entity (XXE)":
+            results[attack + " wapiti"] = Functions.xxe_tools.wapiti(target_url, url_folder, selected_attacks)
+        if attack == "Insecure Design":
+            results[attack + " Dirb"] = Functions.inscure_design_tools.dirb(target_url, url_folder, selected_attacks)
+            results[attack + " Fuff"] = Functions.inscure_design_tools.ffuf(target_url, url_folder, selected_attacks)
+            # results[attack + " Dependency-Check"] = Functions.inscure_design_tools.dependency_check(target_url, url_folder, selected_attacks)
         attack_end_time = time.time()  # End the timer for each attack
         attack_duration = attack_end_time - attack_start_time
         print(f"{attack} processing time: {attack_duration:.2f} seconds")
