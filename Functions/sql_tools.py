@@ -6,9 +6,9 @@ def sqlmap(target_url, url_folder, selected_attacks):
     if not Global_Function.checkbox_checked(selected_attacks, "SQL Injection"):
         return None
 
-    target_url = Global_Function.ensure_start_http(Global_Function.ensure_trailing_slash(target_url))
+    target_url = Global_Function.ensure_start_http(target_url)
     try:
-        output = subprocess.check_output(["sqlmap", "-u","'"+target_url+"'"," --dbs"])
+        output = subprocess.check_output(["sqlmap", "-u",target_url,"--dbs","--forms","--crawl=2","--batch","--tables"])
         outfile = os.path.join(url_folder, "SQL_Injection_sqlmap.txt")
         with open(outfile, "wb") as f:
             f.write(output)

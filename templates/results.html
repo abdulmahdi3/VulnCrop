@@ -276,7 +276,7 @@
 </head>
 
 <body>
-    <div class="word">VulnCrop</div>
+    <div class="word">VD-MPT</div>
     <div class="accordion-menu">
         <ul>
             {% for attack, result in results.items() %}
@@ -292,7 +292,13 @@
     <table>
         <tr>
             <th>
-                <h2>Total Scanning Time: {{ timing_data["Total"] | round(2) }} Seconds</h2> 
+                {% if timing_data["Total"] >= 60 %}
+                {% set minutes = timing_data["Total"] // 60 %}
+                {% set seconds = timing_data["Total"] % 60 %}
+                <h2>Total Scanning Time: {{ minutes|int }}:{{ "%02d"|format(seconds) }} min</h2>
+                {% else %}
+                <h2>Total Scanning Time: {{ timing_data["Total"] | round(2) }} sec</h2>
+                {% endif %}
             </th>
         </tr>
     </table>

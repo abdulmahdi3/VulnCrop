@@ -12,7 +12,7 @@ def homepage():
 
 @app.route("/attacks", methods=["GET","POST"])
 def attacks_page():
-    start_time = time.time()  # Start the timer
+    start_time = time.time() 
     selected_attacks = request.form.getlist("attacks")
     target_url = request.form.get("target_url", "")
     if not target_url or not selected_attacks:
@@ -22,7 +22,7 @@ def attacks_page():
     results = {}
     timing_data = {}
     for attack in selected_attacks:
-        attack_start_time = time.time()  # Start the timer for each attack
+        attack_start_time = time.time()  
         if attack == "Broken Access Control":
             results[attack + " Gobuster"] = Functions.broken_access_tools.gobuster(target_url, url_folder, selected_attacks)
             results[attack + " Katana"] = Functions.broken_access_tools.katana(target_url, url_folder, selected_attacks)
@@ -37,14 +37,19 @@ def attacks_page():
             results[attack + " Dirb"] = Functions.inscure_design_tools.dirb(target_url, url_folder, selected_attacks)
             results[attack + " Fuff"] = Functions.inscure_design_tools.ffuf(target_url, url_folder, selected_attacks)
             # results[attack + " Dependency-Check"] = Functions.inscure_design_tools.dependency_check(target_url, url_folder, selected_attacks)
-        attack_end_time = time.time()  # End the timer for each attack
+        attack_end_time = time.time()
         attack_duration = attack_end_time - attack_start_time
         print(f"{attack} processing time: {attack_duration:.2f} seconds")
 
     end_time = time.time()
     total_duration = end_time - start_time
     timing_data["Total"] = total_duration
-    print(f"Total processing time: {total_duration % 60:.2f} seconds")
+    if total_duration >= 60:
+        minutes = total_duration // 60
+        seconds = total_duration % 60
+        print(f"Total processing time: {minutes} minutes and {seconds:.2f} seconds")
+    else:
+        print(f"Total processing time: {total_duration:.2f} seconds")
 
     return render_template("results.html", selected_attacks=selected_attacks, target_url=target_url, results=results, timing_data=timing_data)
 
