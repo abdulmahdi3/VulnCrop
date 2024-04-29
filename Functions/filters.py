@@ -33,7 +33,6 @@ def filter_files(directory):
             line_count = 0 
             count_potentiality = 0
             count_directory = 0
-            database_found = False
             database_type = None  # Initialize variable to store the DBMS name
             with open(file_path, 'r') as file:
                 for line in file:
@@ -43,14 +42,17 @@ def filter_files(directory):
                     if 'cve' in line.lower() or 'cve' in line.upper():
                         count_cve += 1
                         line_count += 1
+                    if 'web application technology' in line:
+                        web_technology += 1
+                        line_count += 1
                     if '2k' in line.lower() or '2k' in line.upper():
                         count_potentiality += 1
                         line_count += 1
                     for dbms in dbms_list:
                         if dbms in line:
                             line_count += 1
-                            database_type = dbms  # Store the detected DBMS name
-                            break  # Exit the loop once a DBMS is found
+                            database_type = dbms  
+                            break  
                 Severity = Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality, count_cve)
         
             if filename.endswith("katana.txt"):
@@ -69,7 +71,7 @@ def filter_files(directory):
                 "potentiality": count_potentiality,
                 "filtered_lines": line_count,
                 "Severity": Severity,
-                "database_type": database_type  # Use the stored DBMS name here
+                "database_type": database_type  
             }
             results.append(result)
 
@@ -78,5 +80,4 @@ def filter_files(directory):
 
     print("Results saved to filter.json")
 
-# Usage example: Provide the directory path instead of individual file paths
 filter_files('/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81')
