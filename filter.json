@@ -1,0 +1,66 @@
+[
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_gobuster 2.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 1,
+        "filtered_lines": 1,
+        "Severity": "Low"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_ffuf.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 11,
+        "filtered_lines": 11,
+        "Severity": "Critical"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/SQL_Injection_sqlmap.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 0,
+        "filtered_lines": 0,
+        "Severity": "None"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_nmap 2.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 0,
+        "filtered_lines": 0,
+        "Severity": "None"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_dirb.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 0,
+        "filtered_lines": 0,
+        "Severity": "None"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/XSS_xsstrike.txt",
+        "301": 0,
+        "cve": 4,
+        "potentiality": 0,
+        "filtered_lines": 4,
+        "Severity": "Critical"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_gobuster.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 1,
+        "filtered_lines": 1,
+        "Severity": "Low"
+    },
+    {
+        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_katana.txt",
+        "301": 0,
+        "cve": 0,
+        "potentiality": 0,
+        "filtered_lines": 0,
+        "Severity": "None"
+    }
+]

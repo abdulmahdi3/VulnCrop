@@ -1,0 +1,46 @@
+{
+    "Broken_Access": [
+        {
+            "Tool_Name": "_gobuster",
+            "Error": false,
+            "Output": true,
+            "vulnerability": false,
+            "line_number": 7,
+            "Payloads": 20,
+            "CVEs": 2,
+            "Severty": "Low"
+        },
+        {
+         "Tool_Name": "_ffuf",
+         "Error": false,
+         "Output": true,
+         "vulnerability": false,
+         "line_number": 7,
+         "Payloads": 20,
+         "CVEs": 2,
+         "Severty": "Low"
+        }
+    ],
+    "SQL_injection": [
+      {
+         "Tool_Name": "_dsss",
+         "Error": false,
+         "Output": true,
+         "vulnerability": false,
+         "line_number": 7,
+         "Payloads": 20,
+         "CVEs": 2,
+         "Severty": "Low"
+     },
+     {
+      "Tool_Name": "_nmap",
+      "Error": false,
+      "Output": true,
+      "vulnerability": false,
+      "line_number": 7,
+      "Payloads": 20,
+      "CVEs": 2,
+      "Severty": "Low"
+     }
+    ]
+}
