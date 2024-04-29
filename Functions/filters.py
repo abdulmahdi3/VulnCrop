@@ -1,7 +1,17 @@
 import os
 import json
 
-def Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality,count_cve):
+# List of DBMS names
+dbms_list = [
+    'MySQL', 'Oracle', 'PostgreSQL', 'Microsoft SQL Server', 'Microsoft Access',
+    'IBM DB2', 'SQLite', 'Firebird', 'Sybase', 'SAP MaxDB', 'Informix', 'MariaDB',
+    'Percona', 'MemSQL', 'TiDB', 'CockroachDB', 'HSQLDB', 'H2', 'MonetDB', 'Apache Derby',
+    'Amazon Redshift', 'Vertica', 'Mckoi', 'Presto', 'Altibase', 'MimerSQL', 'CrateDB',
+    'Greenplum', 'Drizzle', 'Apache Ignite', 'Cubrid', 'InterSystems Cache', 'IRIS',
+    'eXtremeDB', 'FrontBase'
+]
+
+def Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality, count_cve):
     if count_potentiality >= 10 or count_cve >= 2:
         return "Critical"
     elif (count_potentiality >= 7 and count_potentiality <= 9) or count_cve == 1:
@@ -23,7 +33,8 @@ def filter_files(directory):
             line_count = 0 
             count_potentiality = 0
             count_directory = 0
-            total_lines=0
+            database_found = False
+            database_type = None  # Initialize variable to store the DBMS name
             with open(file_path, 'r') as file:
                 for line in file:
                     if '301' in line.lower() or '301' in line.upper():
@@ -35,7 +46,12 @@ def filter_files(directory):
                     if '2k' in line.lower() or '2k' in line.upper():
                         count_potentiality += 1
                         line_count += 1
-                Severity=Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality,count_cve)
+                    for dbms in dbms_list:
+                        if dbms in line:
+                            line_count += 1
+                            database_type = dbms  # Store the detected DBMS name
+                            break  # Exit the loop once a DBMS is found
+                Severity = Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality, count_cve)
         
             if filename.endswith("katana.txt"):
                 file_path = os.path.join(directory, filename)  
@@ -44,6 +60,7 @@ def filter_files(directory):
                         if 'https://' in line or 'http://' in line:
                             count_directory += 1
                             line_count += 1
+
             result = {
                 "file": file_path,
                 "directory_number" : count_directory,
@@ -52,6 +69,7 @@ def filter_files(directory):
                 "potentiality": count_potentiality,
                 "filtered_lines": line_count,
                 "Severity": Severity,
+                "database_type": database_type  # Use the stored DBMS name here
             }
             results.append(result)
 

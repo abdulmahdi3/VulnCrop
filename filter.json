@@ -6,7 +6,8 @@
         "cve": 0,
         "potentiality": 1,
         "filtered_lines": 1,
-        "Severity": "Low"
+        "Severity": "Low",
+        "database_type": null
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_ffuf.txt",
@@ -15,7 +16,8 @@
         "cve": 0,
         "potentiality": 11,
         "filtered_lines": 11,
-        "Severity": "Critical"
+        "Severity": "Critical",
+        "database_type": null
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/SQL_Injection_sqlmap.txt",
@@ -23,17 +25,9 @@
         "301": 0,
         "cve": 0,
         "potentiality": 0,
-        "filtered_lines": 0,
-        "Severity": "None"
-    },
-    {
-        "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_nmap 2.txt",
-        "directory_number": 0,
-        "301": 0,
-        "cve": 0,
-        "potentiality": 0,
-        "filtered_lines": 0,
-        "Severity": "None"
+        "filtered_lines": 4,
+        "Severity": "None",
+        "database_type": "SQLite"
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_dirb.txt",
@@ -41,8 +35,9 @@
         "301": 0,
         "cve": 0,
         "potentiality": 0,
-        "filtered_lines": 0,
-        "Severity": "None"
+        "filtered_lines": 1,
+        "Severity": "None",
+        "database_type": "SQLite"
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/XSS_xsstrike.txt",
@@ -51,7 +46,8 @@
         "cve": 4,
         "potentiality": 0,
         "filtered_lines": 4,
-        "Severity": "Critical"
+        "Severity": "Critical",
+        "database_type": null
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_gobuster.txt",
@@ -60,7 +56,8 @@
         "cve": 0,
         "potentiality": 1,
         "filtered_lines": 1,
-        "Severity": "Low"
+        "Severity": "Low",
+        "database_type": null
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_katana.txt",
@@ -69,6 +66,7 @@
         "cve": 0,
         "potentiality": 0,
         "filtered_lines": 16,
-        "Severity": "None"
+        "Severity": "None",
+        "database_type": null
     }
 ]
