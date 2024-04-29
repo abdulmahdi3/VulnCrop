@@ -1,6 +1,7 @@
 [
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_gobuster 2.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 1,
@@ -9,6 +10,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_ffuf.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 11,
@@ -17,6 +19,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/SQL_Injection_sqlmap.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 0,
@@ -25,6 +28,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_nmap 2.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 0,
@@ -33,6 +37,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Insecure_Design_dirb.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 0,
@@ -41,6 +46,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/XSS_xsstrike.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 4,
         "potentiality": 0,
@@ -49,6 +55,7 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_gobuster.txt",
+        "directory_number": 0,
         "301": 0,
         "cve": 0,
         "potentiality": 1,
@@ -57,10 +64,11 @@
     },
     {
         "file": "/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81/Broken_Access_katana.txt",
+        "directory_number": 16,
         "301": 0,
         "cve": 0,
         "potentiality": 0,
-        "filtered_lines": 0,
+        "filtered_lines": 16,
         "Severity": "None"
     }
 ]

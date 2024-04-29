@@ -16,12 +16,13 @@ def Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality,count_cve):
 def filter_files(directory):
     results = []
     for filename in os.listdir(directory):
-        if filename.endswith(".txt"):  # Check if the file is a text file
+        if filename.endswith(".txt"): 
             file_path = os.path.join(directory, filename)
             count_301 = 0
             count_cve = 0
             line_count = 0 
             count_potentiality = 0
+            count_directory = 0
             total_lines=0
             with open(file_path, 'r') as file:
                 for line in file:
@@ -35,14 +36,17 @@ def filter_files(directory):
                         count_potentiality += 1
                         line_count += 1
                 Severity=Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality,count_cve)
-
-            # with open(file_path,'') as katan_file:
-            #     if 'https://' in line or 'http://' in line:
-            #         count_potentiality += 1
-            #         line_count += 1
-
+        
+            if filename.endswith("katana.txt"):
+                file_path = os.path.join(directory, filename)  
+                with open(file_path, 'r') as katan_file:
+                    for line in katan_file:
+                        if 'https://' in line or 'http://' in line:
+                            count_directory += 1
+                            line_count += 1
             result = {
                 "file": file_path,
+                "directory_number" : count_directory,
                 "301": count_301,
                 "cve": count_cve,
                 "potentiality": count_potentiality,
