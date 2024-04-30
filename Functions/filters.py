@@ -42,9 +42,9 @@ def filter_files(directory):
                     if 'cve' in line.lower() or 'cve' in line.upper():
                         count_cve += 1
                         line_count += 1
-                    if 'web application technology' in line:
-                        web_technology += 1
-                        line_count += 1
+                    # if 'web application technology' in line:
+                    #     web_technology += 1
+                    #     line_count += 1
                     if '2k' in line.lower() or '2k' in line.upper():
                         count_potentiality += 1
                         line_count += 1

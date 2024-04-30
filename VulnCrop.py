@@ -1,3 +1,4 @@
+import json
 import os, time
 import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools
 from flask import Flask, render_template, request, redirect, url_for
@@ -9,6 +10,29 @@ def homepage():
     if request.method == "POST":
         return redirect(url_for('attacks_page'))
     return render_template("homepage.html")
+
+@app.route('/visualisation', methods=['GET', 'POST'])
+def index():
+    # Read the contents of filter.json
+    with open('filter.json', 'r') as f:
+        data = json.load(f)
+
+    # Process the data as needed
+    payloads = sum(entry['filtered_lines'] for entry in data)
+    tools_executed = len(data)
+    potentiality = sum(entry['potentiality'] for entry in data)
+
+    # Determine the site_state based on the severity
+    site_state = 'vulnerable' if any(entry['Severity'] == 'Low' or entry['Severity'] == 'Medium' or entry['Severity'] == 'High' or entry['Severity'] == 'Critical' for entry in data) else 'secure'
+    doughnutChart_Low = sum(entry['Severity'] == 'Low' for entry in data)
+    doughnutChart_Medium = sum(entry['Severity'] == 'Medium' for entry in data)
+    doughnutChart_High = sum(entry['Severity'] == 'High' and entry['Severity'] == 'Critical' for entry in data)
+
+    data_json = json.dumps(data)
+
+
+    return render_template('index.html', data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
+
 
 @app.route("/attacks", methods=["GET","POST"])
 def attacks_page():
