@@ -578,12 +578,14 @@
                 to access and use
                 the resources provided. Unauthorized access may lead to legal consequences.
             </p>
-            <!-- <p class="authority-alert"><span style="color: #15F5BA;">*</span>Please make sure to check the authority
-                checkbox.
-            </p> -->
         </div>
         <div class="checkboxes tabcontent" id="Attacks">
             <ul>
+                <li>
+                    <label for="selectAll">
+                        <input id="selectAll" type="checkbox">Select All
+                    </label>
+                </li>
                 <li>
                     <label for="c1">
                         <input id="c1" type="checkbox" name="attacks" value="Broken Access Control">Broken Access
@@ -621,15 +623,19 @@
                 </li>
                 <li>
                     <label for="c8">
-                        <input id="c8" type="checkbox" name="attacks" value="Outdated Components">Outdated Components</label>
+                        <input id="c8" type="checkbox" name="attacks" value="Outdated Components">Outdated
+                        Components</label>
                 </li>
                 <li>
                     <label for="c9">
-                        <input id="c9" type="checkbox" name="attacks" value="Security Misconfiguration">Security Misconfiguration</label>
+                        <input id="c9" type="checkbox" name="attacks" value="Security Misconfiguration">Security
+                        Misconfiguration</label>
                 </li>
                 <li>
                     <label for="c10">
-                        <input id="c10" type="checkbox" name="attacks" value="Session Hijacking and Session Fixation">Session Hijacking and Session Fixation</label>
+                        <input id="c10" type="checkbox" name="attacks"
+                            value="Session Hijacking and Session Fixation">Session Hijacking and Session
+                        Fixation</label>
                 </li>
             </ul>
             <div class="bomb-button">
@@ -683,6 +689,20 @@
     });
 
     document.addEventListener("DOMContentLoaded", function () {
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const attackCheckboxes = document.querySelectorAll('input[name="attacks"]');
+
+        selectAllCheckbox.addEventListener('change', function () {
+            const isChecked = this.checked;
+            attackCheckboxes.forEach(function (checkbox) {
+                checkbox.checked = isChecked;
+            });
+        });
+
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('.scan').addEventListener('click', function (event) {
             event.preventDefault(); // Prevent form submission
 
@@ -722,20 +742,6 @@
         }
 
     });
-
-
-    // const form = document.querySelector('form');
-    // const authCheckbox = document.getElementById('auth');
-    // const authorityAlert = document.querySelector('.authority-alert');
-
-    // form.addEventListener('submit', e => {
-    //     if (!authCheckbox.checked) {
-    //         e.preventDefault();
-    //         authorityAlert.style.display = 'block';
-
-    //     }
-    // });
-
 </script>
 
 </html>

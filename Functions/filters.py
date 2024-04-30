@@ -1,7 +1,6 @@
 import os
 import json
 
-# List of DBMS names
 dbms_list = [
     'MySQL', 'Oracle', 'PostgreSQL', 'Microsoft SQL Server', 'Microsoft Access',
     'IBM DB2', 'SQLite', 'Firebird', 'Sybase', 'SAP MaxDB', 'Informix', 'MariaDB',
@@ -34,7 +33,7 @@ def filter_files(directory):
             count_potentiality = 0
             count_directory = 0
             infos = 0
-            database_type = None  # Initialize variable to store the DBMS name
+            database_type = None
             with open(file_path, 'r') as file:
                 for line in file:
                     if '301' in line.lower() or '301' in line.upper():
@@ -84,4 +83,4 @@ def filter_files(directory):
     with open("filter.json", "w") as output_file:
         json.dump(results, output_file, indent=4)
 
-    print("Results saved to filter.json")
+print("Results saved to filter.json")

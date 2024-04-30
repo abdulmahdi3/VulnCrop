@@ -154,81 +154,81 @@
         salesChart.update();
       });
     }
-    if ($("#net-profit").length) {
-      var marksCanvas = document.getElementById("net-profit");
-      var marksData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-        datasets: [{
-          label: "Sales",
-          backgroundColor: 'rgba(88, 208, 222,0.8)',
-          borderColor: 'rgba(88, 208, 222,0.8)',
-          borderWidth: 0,
-          fill: true,
-          radius: 0,
-          pointRadius: 0,
-          pointBorderWidth: 0,
-          pointBackgroundColor: 'rgba(88, 208, 222,0.8)',
-          pointHoverRadius: 10,
-          pointHitRadius: 5,
-          data: [54, 45, 60, 70, 54, 75, 60, 54]
-        }, {
-          label: "Orders",
-          backgroundColor: 'rgba(150, 77, 247,1)',
-          borderColor: 'rgba(150, 77, 247,1)',
-          borderWidth: 0,
-          fill: true,
-          radius: 0,
-          pointRadius: 0,
-          pointBorderWidth: 0,
-          pointBackgroundColor: 'rgba(150, 77, 247,1)',
-          pointHoverRadius: 10,
-          pointHitRadius: 5,
-          data: [65, 75, 70, 80, 60, 80, 36, 60]
-        }]
-      };
+    // if ($("#net-profit").length) {
+    //   var marksCanvas = document.getElementById("net-profit");
+    //   var marksData = {
+    //     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+    //     datasets: [{
+    //       label: "Sales",
+    //       backgroundColor: 'rgba(88, 208, 222,0.8)',
+    //       borderColor: 'rgba(88, 208, 222,0.8)',
+    //       borderWidth: 0,
+    //       fill: true,
+    //       radius: 0,
+    //       pointRadius: 0,
+    //       pointBorderWidth: 0,
+    //       pointBackgroundColor: 'rgba(88, 208, 222,0.8)',
+    //       pointHoverRadius: 10,
+    //       pointHitRadius: 5,
+    //       data: [54, 45, 60, 70, 54, 75, 60, 54]
+    //     }, {
+    //       label: "Orders",
+    //       backgroundColor: 'rgba(150, 77, 247,1)',
+    //       borderColor: 'rgba(150, 77, 247,1)',
+    //       borderWidth: 0,
+    //       fill: true,
+    //       radius: 0,
+    //       pointRadius: 0,
+    //       pointBorderWidth: 0,
+    //       pointBackgroundColor: 'rgba(150, 77, 247,1)',
+    //       pointHoverRadius: 10,
+    //       pointHitRadius: 5,
+    //       data: [65, 75, 70, 80, 60, 80, 36, 60]
+    //     }]
+    //   };
 
-      var chartOptions = {
-        scale: {
-          ticks: {
-            beginAtZero: true,
-            min: 0,
-            max: 100,
-            stepSize: 20,
-            display: false,
-          },
-          pointLabels: {
-            fontSize: 14
-          },
-          angleLines: {
-            color: '#e9ebf1'
-          },
-          gridLines: {
-            color: "#e9ebf1"
-          }
-        },
-        legend: false,
-        legendCallback: function (chart) {
-          var text = [];
-          text.push('<div class="chartjs-legend"><ul>');
-          for (var i = 0; i < chart.data.datasets.length; i++) {
-            console.log(chart.data.datasets[i]); // see what's inside the obj.
-            text.push('<li>');
-            text.push('<span style="background-color:' + chart.data.datasets[i].backgroundColor + '">' + '</span>');
-            text.push(chart.data.datasets[i].label);
-            text.push('</li>');
-          }
-          text.push('</ul></div>');
-          return text.join("");
-        },
-      };
+    //   var chartOptions = {
+    //     scale: {
+    //       ticks: {
+    //         beginAtZero: true,
+    //         min: 0,
+    //         max: 100,
+    //         stepSize: 20,
+    //         display: false,
+    //       },
+    //       pointLabels: {
+    //         fontSize: 14
+    //       },
+    //       angleLines: {
+    //         color: '#e9ebf1'
+    //       },
+    //       gridLines: {
+    //         color: "#e9ebf1"
+    //       }
+    //     },
+    //     legend: false,
+    //     legendCallback: function (chart) {
+    //       var text = [];
+    //       text.push('<div class="chartjs-legend"><ul>');
+    //       for (var i = 0; i < chart.data.datasets.length; i++) {
+    //         console.log(chart.data.datasets[i]); // see what's inside the obj.
+    //         text.push('<li>');
+    //         text.push('<span style="background-color:' + chart.data.datasets[i].backgroundColor + '">' + '</span>');
+    //         text.push(chart.data.datasets[i].label);
+    //         text.push('</li>');
+    //       }
+    //       text.push('</ul></div>');
+    //       return text.join("");
+    //     },
+    //   };
 
-      var radarChart = new Chart(marksCanvas, {
-        type: 'radar',
-        data: marksData,
-        options: chartOptions
-      });
-      document.getElementById('net-profit-legend').innerHTML = radarChart.generateLegend();
-    }
+    //   var radarChart = new Chart(marksCanvas, {
+    //     type: 'radar',
+    //     data: marksData,
+    //     options: chartOptions
+    //   });
+    //   document.getElementById('net-profit-legend').innerHTML = radarChart.generateLegend();
+    // }
     // console.log(dataFromFlask);
     if ($("#doughnutChart").length) {
       var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
@@ -348,7 +348,7 @@
     if ($("#radarChart").length) {
       var marksCanvas = document.getElementById("radarChart");
       var marksData = {
-        labels: ["English", "Maths", "Physics", "Chemistry", "Biology", "History"],
+        labels: ["BAC", "XSS", "SQL Injection", "Insecure Design", "ODC", "SM", "CSRF", "SSRF", "XXE", "SH&SF"],
         datasets: [{
           label: "Student A",
           backgroundColor: ChartColor[0],
@@ -361,18 +361,6 @@
           pointBackgroundColor: ChartColor[4],
           pointHoverRadius: 10,
           data: [54, 45, 60, 70, 54, 75]
-        }, {
-          label: "Student B",
-          backgroundColor: ChartColor[1],
-          borderColor: ChartColor[1],
-          borderWidth: 0,
-          fill: true,
-          radius: 6,
-          pointRadius: 5,
-          pointBorderWidth: 0,
-          pointBackgroundColor: ChartColor[1],
-          pointHoverRadius: 10,
-          data: [65, 75, 70, 80, 60, 80]
         }]
       };
   
@@ -412,212 +400,8 @@
       });
       document.getElementById('radar-chart-legend').innerHTML = radarChart.generateLegend();
     }
-    if ($('#total-revenue').length) {
-      var ctx = document.getElementById('total-revenue').getContext("2d");
-      var data = {
-        labels: [
-          "Day01",
-          "Day02",
-          "Day03",
-          "Day04",
-          "Day05",
-          "Day06",
-          "Day07",
-          "Day08",
-          "Day09",
-          "Day10",
-          "Day11",
-          "Day12",
-          "Day13",
-          "Day14",
-          "Day15",
-          "Day16",
-          "Day17",
-          "Day18",
-          "Day19",
-          "Day20",
-          "Day21",
-          "Day22",
-          "Day23",
-          "Day24",
-          "Day25",
-          "Day26",
-          "Day27",
-          "Day28",
-          "Day29",
-          "Day30",
-          "Day31",
-          "Day32",
-          "Day33",
-          "Day34",
-          "Day35",
-          "Day36",
-          "Day37",
-          "Day38",
-          "Day39",
-          "Day40",
-          "Day41",
-          "Day42",
-          "Day43",
-          "Day44",
-          "Day45",
-          "Day46",
-          "Day47",
-          "Day48",
-          "Day49",
-          "Day50",
-          "Day51",
-          "Day52",
-          "Day53",
-          "Day54",
-          "Day55",
-          "Day56",
-          "Day57",
-          "Day58",
-          "Day59",
-          "Day60",
-          "Day61",
-          "Day62",
-          "Day63",
-          "Day64",
-          "Day65",
-          "Day66",
-          "Day67",
-          "Day68",
-          "Day69",
-          "Day70",
-          "Day71",
-          "Day72",
-          "Day73",
-          "Day74",
-          "Day75",
-          "Day76",
-          "Day77",
-          "Day78",
-          "Day79",
-          "Day80",
-          "Day81",
-          "Day82"
-        ],
-        datasets: [{
-          label: 'Total Revenue',
-          data: [56,
-            55,
-            59,
-            59,
-            59,
-            57,
-            56,
-            57,
-            54,
-            56,
-            58,
-            57,
-            59,
-            58,
-            59,
-            57,
-            55,
-            56,
-            54,
-            52,
-            49,
-            48,
-            50,
-            50,
-            46,
-            45,
-            49,
-            50,
-            52,
-            53,
-            52,
-            55,
-            54,
-            53,
-            56,
-            55,
-            56,
-            55,
-            54,
-            55,
-            57,
-            58,
-            56,
-            55,
-            56,
-            57,
-            58,
-            59,
-            58,
-            57,
-            55,
-            53,
-            52,
-            55,
-            57,
-            55,
-            54,
-            52,
-            55,
-            57,
-            56,
-            57,
-            58,
-            59,
-            58,
-            59,
-            57,
-            56,
-            55,
-            57,
-            58,
-            59,
-            60,
-            62,
-            60,
-            59,
-            58,
-            57,
-            56,
-            57,
-            56,
-            58,
-            59
-          ],
-          borderColor: '#9B86F1',
-          backgroundColor: '#f2f2ff',
-          borderWidth: 3,
-          fill: 'origin'
-        }]
-      };
-      var lineChart = new Chart(ctx, {
-        type: 'line',
-        data: data,
-        options: {
-          scales: {
-            yAxes: [{
-              display: false
-            }],
-            xAxes: [{
-              display: false
-            }]
-          },
-          legend: {
-            display: false
-          },
-          elements: {
-            point: {
-              radius: 0
-            },
-            line: {
-              tension: 0
-            }
-          },
-          stepsize: 100
-        }
-      });
-    }
+
+
     if ($('#total-transaction').length) {
       var ctx = document.getElementById('total-transaction').getContext('2d');
       var gradientStrokeFill_1 = ctx.createLinearGradient(0, 100, 200, 0);
