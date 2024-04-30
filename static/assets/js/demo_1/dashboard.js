@@ -294,7 +294,124 @@
       });
       document.getElementById('doughnut-chart-legend').innerHTML = doughnutChart.generateLegend();
     }
-
+    if ($("#pieChart").length) {
+      var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+      var pieChart = new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: [doughnutChart_Low, doughnutChart_Medium, doughnutChart_High],
+            backgroundColor: [
+              ChartColor[5],
+              ChartColor[3],
+              ChartColor[2]
+            ],
+            borderColor: [
+              ChartColor[5],
+              ChartColor[3],
+              ChartColor[2]
+            ],
+          }],
+          labels: [
+            'Low',
+            'Medium',
+            'High',  
+          ]
+        },
+        options: {
+          responsive: true,
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          },
+          legend: {
+            display: false
+          },
+          legendCallback: function (chart) {
+            var text = [];
+            text.push('<div class="chartjs-legend"><ul>');
+            for (var i = 0; i < chart.data.datasets[0].data.length; i++) {
+              text.push('<li><span style="background-color:' + chart.data.datasets[0].backgroundColor[i] + '">');
+              text.push('</span>');
+              if (chart.data.labels[i]) {
+                text.push(chart.data.labels[i]);
+              }
+              text.push('</li>');
+            }
+            text.push('</div></ul>');
+            return text.join("");
+          }
+        }
+      });
+      document.getElementById('pie-chart-legend').innerHTML = pieChart.generateLegend();
+    }
+    if ($("#radarChart").length) {
+      var marksCanvas = document.getElementById("radarChart");
+      var marksData = {
+        labels: ["English", "Maths", "Physics", "Chemistry", "Biology", "History"],
+        datasets: [{
+          label: "Student A",
+          backgroundColor: ChartColor[0],
+          borderColor: ChartColor[0],
+          borderWidth: 0,
+          fill: true,
+          radius: 6,
+          pointRadius: 5,
+          pointBorderWidth: 0,
+          pointBackgroundColor: ChartColor[4],
+          pointHoverRadius: 10,
+          data: [54, 45, 60, 70, 54, 75]
+        }, {
+          label: "Student B",
+          backgroundColor: ChartColor[1],
+          borderColor: ChartColor[1],
+          borderWidth: 0,
+          fill: true,
+          radius: 6,
+          pointRadius: 5,
+          pointBorderWidth: 0,
+          pointBackgroundColor: ChartColor[1],
+          pointHoverRadius: 10,
+          data: [65, 75, 70, 80, 60, 80]
+        }]
+      };
+  
+      var chartOptions = {
+        scale: {
+          ticks: {
+            beginAtZero: true,
+            min: 0,
+            max: 100,
+            stepSize: 20,
+            display: false,
+          },
+          pointLabels: {
+            fontSize: 14
+          }
+        },
+        legend: false,
+        legendCallback: function (chart) {
+          var text = [];
+          text.push('<div class="chartjs-legend"><ul>');
+          for (var i = 0; i < chart.data.datasets.length; i++) {
+            console.log(chart.data.datasets[i]); // see what's inside the obj.
+            text.push('<li>');
+            text.push('<span style="background-color:' + chart.data.datasets[i].backgroundColor + '">' + '</span>');
+            text.push(chart.data.datasets[i].label);
+            text.push('</li>');
+          }
+          text.push('</ul></div>');
+          return text.join("");
+        },
+      };
+  
+      var radarChart = new Chart(marksCanvas, {
+        type: 'radar',
+        data: marksData,
+        options: chartOptions
+      });
+      document.getElementById('radar-chart-legend').innerHTML = radarChart.generateLegend();
+    }
     if ($('#total-revenue').length) {
       var ctx = document.getElementById('total-revenue').getContext("2d");
       var data = {

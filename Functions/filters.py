@@ -33,6 +33,7 @@ def filter_files(directory):
             line_count = 0 
             count_potentiality = 0
             count_directory = 0
+            infos = 0
             database_type = None  # Initialize variable to store the DBMS name
             with open(file_path, 'r') as file:
                 for line in file:
@@ -42,9 +43,12 @@ def filter_files(directory):
                     if 'cve' in line.lower() or 'cve' in line.upper():
                         count_cve += 1
                         line_count += 1
-                    # if 'web application technology' in line:
-                    #     web_technology += 1
-                    #     line_count += 1
+                    if '[INFO]' in line.lower() or '[INFO]' in line.upper():
+                        infos += 1
+                        infos_details=print(line.strip())
+                        line_count += 1
+                    else:
+                        print("None")
                     if '2k' in line.lower() or '2k' in line.upper():
                         count_potentiality += 1
                         line_count += 1
@@ -71,7 +75,9 @@ def filter_files(directory):
                 "potentiality": count_potentiality,
                 "filtered_lines": line_count,
                 "Severity": Severity,
-                "database_type": database_type  
+                "database_type": database_type,
+                "informations": infos,
+                "infos_details": infos_details,
             }
             results.append(result)
 
@@ -79,5 +85,3 @@ def filter_files(directory):
         json.dump(results, output_file, indent=4)
 
     print("Results saved to filter.json")
-
-filter_files('/Users/mahdihussnie/Desktop/VulnCrop/scans/https:/pentest-ground.com:81')

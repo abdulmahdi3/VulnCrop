@@ -1,6 +1,6 @@
 import json
 import os, time
-import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools
+import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools ,Functions.filters
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__, template_folder="templates")        
@@ -12,7 +12,7 @@ def homepage():
     return render_template("homepage.html")
 
 @app.route('/visualisation', methods=['GET', 'POST'])
-def index():
+def index(directory_to_scan):
     # Read the contents of filter.json
     with open('filter.json', 'r') as f:
         data = json.load(f)
@@ -29,8 +29,7 @@ def index():
     doughnutChart_High = sum(entry['Severity'] == 'High' and entry['Severity'] == 'Critical' for entry in data)
 
     data_json = json.dumps(data)
-
-
+    Functions.filters.filter_files(directory_to_scan)
     return render_template('index.html', data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
 
 
@@ -75,7 +74,8 @@ def attacks_page():
     else:
         print(f"Total processing time: {total_duration:.2f} seconds")
 
-    return render_template("results.html", selected_attacks=selected_attacks, target_url=target_url, results=results, timing_data=timing_data)
+    render_template("results.html", selected_attacks=selected_attacks, target_url=target_url, results=results, timing_data=timing_data)
+    return index(url_folder)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
