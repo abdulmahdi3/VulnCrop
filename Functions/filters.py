@@ -34,6 +34,7 @@ def filter_files(directory):
             count_directory = 0
             infos = 0
             database_type = None
+            infos_details = None
             with open(file_path, 'r') as file:
                 for line in file:
                     if '301' in line.lower() or '301' in line.upper():

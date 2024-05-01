@@ -1,6 +1,6 @@
 import json
 import os, time
-import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools ,Functions.filters
+import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools ,Functions.filters , Functions.Global_Function
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__, template_folder="templates")        
@@ -17,6 +17,9 @@ def index(directory_to_scan):
     with open('filter.json', 'r') as f:
         data = json.load(f)
 
+    with open('web_tech.json', 'r') as f:
+        data_tech = json.load(f)
+
     # Process the data as needed
     payloads = sum(entry['filtered_lines'] for entry in data)
     tools_executed = len(data)
@@ -29,8 +32,20 @@ def index(directory_to_scan):
     doughnutChart_High = sum(entry['Severity'] == 'High' and entry['Severity'] == 'Critical' for entry in data)
 
     data_json = json.dumps(data)
+    data_json_tech = json.dumps(data_tech)
+    technologies_info = [
+    {
+        'slug': tech['slug'],
+        'description': tech['description'],
+        'version': tech['version'],
+        'website': tech['website']
+    }
+    for tech in data_tech['technologies']
+]
+
+    # names_tech = [tech['name'] for tech in data_tech['technologies']]
     Functions.filters.filter_files(directory_to_scan)
-    return render_template('index.html', data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
+    return render_template('index.html',technologies_info=technologies_info, data_json_tech=data_json_tech,data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
 
 
 @app.route("/attacks", methods=["GET","POST"])
@@ -64,6 +79,8 @@ def attacks_page():
         attack_duration = attack_end_time - attack_start_time
         print(f"{attack} processing time: {attack_duration:.2f} seconds")
 
+    Functions.Global_Function.web_tech(target_url)
+    Functions.Global_Function.Sublist3r(target_url,url_folder)
     end_time = time.time()
     total_duration = end_time - start_time
     timing_data["Total"] = total_duration
