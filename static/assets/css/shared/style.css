@@ -3804,6 +3804,18 @@ input[type="button"].btn-block {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(136, 98, 224, 0.5); }
 
+
+.badge-purple, .preview-list .preview-item .preview-thumbnail .badge.badge-offline {
+  color: #fff;
+  background-color: #8862e0; }
+  a.badge-purple:hover, .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:hover, a.badge-purple:focus, .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:focus {
+    color: #fff;
+    background-color: #6837d8; }
+  a.badge-purple:focus, .preview-list .preview-item .preview-thumbnail a.badge.badge-offline:focus, a.badge-purple.focus, .preview-list .preview-item .preview-thumbnail a.focus.badge.badge-offline {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(136, 98, 224, 0.5); }
+
+
 .badge-warning, .preview-list .preview-item .preview-thumbnail .badge.badge-busy {
   color: #212529;
   background-color: #ffaf00; }

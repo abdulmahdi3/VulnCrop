@@ -12,7 +12,7 @@ dbms_list = [
 
 def Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality, count_cve):
     if count_potentiality >= 10 or count_cve >= 2:
-        return "Critical"
+        return "High"
     elif (count_potentiality >= 7 and count_potentiality <= 9) or count_cve == 1:
         return "High"
     elif count_potentiality >= 4 and count_potentiality <= 6 :

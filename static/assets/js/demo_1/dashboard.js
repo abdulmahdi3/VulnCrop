@@ -351,8 +351,8 @@
         labels: ["BAC", "XSS", "SQL Injection", "Insecure Design", "ODC", "SM", "CSRF", "SSRF", "XXE", "SH&SF"],
         datasets: [{
           label: "Student A",
-          backgroundColor: ChartColor[2],
-          borderColor: ChartColor[0],
+          backgroundColor: ChartColor[0],
+          borderColor: ChartColor[1],
           borderWidth: 0,
           fill: true,
           radius: 6,

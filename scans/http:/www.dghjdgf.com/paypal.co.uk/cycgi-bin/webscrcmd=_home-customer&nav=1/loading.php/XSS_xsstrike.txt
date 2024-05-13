@@ -1,0 +1,5 @@
+
+	XSStrike v3.1.5
+
+ Crawling the target 
+ Parsing bscrcmd=_home-customer&nav=1/loading.php  Progress: 1/1 

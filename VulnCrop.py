@@ -13,7 +13,7 @@ def homepage():
 
 @app.route('/visualisation', methods=['GET', 'POST'])
 def index(directory_to_scan):
-    # Read the contents of filter.json
+# Read the contents of filter.json
     with open('filter.json', 'r') as f:
         data = json.load(f)
 
@@ -26,13 +26,24 @@ def index(directory_to_scan):
     potentiality = sum(entry['potentiality'] for entry in data)
 
     # Determine the site_state based on the severity
-    site_state = 'vulnerable' if any(entry['Severity'] == 'Low' or entry['Severity'] == 'Medium' or entry['Severity'] == 'High' or entry['Severity'] == 'Critical' for entry in data) else 'secure'
+    site_state = 'Vulnerable' if any(entry['Severity'] == 'Low' or entry['Severity'] == 'Medium' or entry['Severity'] == 'High' or entry['Severity'] == 'Critical' for entry in data) else 'secure'
     doughnutChart_Low = sum(entry['Severity'] == 'Low' for entry in data)
     doughnutChart_Medium = sum(entry['Severity'] == 'Medium' for entry in data)
-    doughnutChart_High = sum(entry['Severity'] == 'High' and entry['Severity'] == 'Critical' for entry in data)
+    doughnutChart_High = sum(entry['Severity'] == 'High' for entry in data)
+
+    # web_technology = sum(entry['web_technology'] == 'High' for entry in data)
+    # web_technology = set(entry['web_technology'] for entry in data if entry['web_technology'] is not None)
+
+    SqlInjection = sum(entry['database_type'] is not None for entry in data)
+    # DataBaseType = data if any(entry['database_type'] is not None for entry in data) else 'Null'
+    # DataBaseType = [entry['database_type'] for entry in data if entry['database_type'] is not None]
+    DataBaseType = next((entry['database_type'] for entry in data if entry['database_type'] is not None), 'null')
+    # DataBaseType = set(entry['database_type'] for entry in data if entry['database_type'] is not None)
+
 
     data_json = json.dumps(data)
     data_json_tech = json.dumps(data_tech)
+
     technologies_info = [
     {
         'slug': tech['slug'],
@@ -41,11 +52,9 @@ def index(directory_to_scan):
         'website': tech['website']
     }
     for tech in data_tech['technologies']
-]
-
-    # names_tech = [tech['name'] for tech in data_tech['technologies']]
+]    # names_tech = [tech['name'] for tech in data_tech['technologies']]
     Functions.filters.filter_files(directory_to_scan)
-    return render_template('index.html',technologies_info=technologies_info, data_json_tech=data_json_tech,data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
+    return render_template('index.html',DataBaseType=DataBaseType,SqlInjection=SqlInjection,technologies_info=technologies_info, data_json_tech=data_json_tech,data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
 
 
 @app.route("/attacks", methods=["GET","POST"])

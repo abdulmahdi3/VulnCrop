@@ -29,60 +29,92 @@
           <!-- Page Title Header Starts-->
           <div class="row page-title-header">
             <div class="col-12">
-              <div class="page-header">
+              <div class="page-header justify-content-between">
                 <h1 class="page-title">VD-MPT</h1>
+                  <div style="float: left;">
+                      <button type="button" class="btn btn-outline-success btn-fw">
+                        <i class="mdi mdi-code-tags"></i>Results Details
+                      </button>
+                      <button onclick="window.location.href='/download_report'" type="button" class="btn btn-outline-success btn-fw">
+                        <i class="mdi mdi-file-download"></i>Download Report
+                      </button>
+                  </div>
+
               </div>
               <!-- Page Title Header Ends-->
               <div class="row">
                 <div class="col-md-12 grid-margin">
                   <div class="card">
                     <div class="card-body">
-                      <div class="row">
-                        <div class="col-lg-3 col-md-6">
-                          <div class="d-flex">
+                      <div class="row justify-content-between">
+                       
+                        <div class="col-lg-0  col-separator">
+                          <!-- <div class="d-flex">
                             <div class="wrapper">
                               <h3 class="mb-0 font-weight-semibold">Payloads</h3>
                               <h4 align="center" class="mb-0 font-weight-medium text-primary">{{ payloads }}</h4>
                             </div>
-                            <div class="wrapper my-auto ml-auto ml-lg-4">
-                              <canvas height="50" width="100" id="stats-line-graph-1"></canvas>
-                            </div>
-                          </div>
+                          </div> -->
                         </div>
-                        <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                        
+                        <div class="col-lg-2 col-md-6 mt-md-0 mt-4 col-separator">
                           <div class="d-flex">
                             <div class="wrapper">
-                              <h3 class="mb-0 font-weight-semibold">Tools Excute</h3>
-                              <h4 align="center" class="mb-0 font-weight-medium text-primary">{{tools_executed}}</h4>
-                            </div>
-                            <div class="wrapper my-auto ml-auto ml-lg-4">
-                              <canvas height="50" width="100" id="stats-line-graph-2"></canvas>
+
+                              <h3 class="mb-0 font-weight-semibold">Payloads</h3>
+                              <h4 align="center" style="font-weight: bold; margin-top: 8px;" class="mb-0 font-weight-medium text-primary">{{ payloads }}</h4>
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                      
+                        <div class="col-lg-2 col-md-6 mt-md-0 mt-4 col-separator">
+                          <div class="d-flex">
+                            <div class="wrapper">
+                              <h3 class="mb-0 font-weight-semibold">Site Status</h3>
+                              <h4 align="center" style="font-weight: bold; margin-top: 8px;" class="mb-0 font-weight-medium text-primary">{{ site_state }}</h4>
+                            </div>
+                          </div>
+                        </div>
+                      
+                        <div class="col-lg-2 col-md-6 mt-md-0 mt-4 col-separator">
                           <div class="d-flex">
                             <div class="wrapper">
                               <h3 class="mb-0 font-weight-semibold">Potentiality</h3>
-                              <h4 align="center" class="mb-0 font-weight-medium text-primary">{{potentiality}}</h4>
-                            </div>
-                            <div class="wrapper my-auto ml-auto ml-lg-4">
-                              <canvas height="50" width="100" id="stats-line-graph-3"></canvas>
+                              <h4 align="center" style="font-weight: bold; margin-top: 8px;" class="mb-0 font-weight-medium text-primary">{{ potentiality }}</h4>
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 mt-md-0 mt-4">
+                      
+                      
+                        <div class="col-lg-2 col-md-6 mt-md-0 mt-4 col-separator">
                           <div class="d-flex">
                             <div class="wrapper">
-                              <h3 class="mb-0 font-weight-semibold">Site State</h3>
-                              <h4 align="center" class="mb-0 font-weight-medium text-primary">{{ site_state }}</h4>
+                              <h3 class="mb-0 font-weight-semibold">Tools Excute</h3>
+                              <h4 align="center" style="font-weight: bold; margin-top: 8px;" class="mb-0 font-weight-medium text-primary">{{ tools_executed }}</h4>
                             </div>
-                            <div class="wrapper my-auto ml-auto ml-lg-4">
-                              <canvas height="50" width="100" id="stats-line-graph-4"></canvas>
+                          </div>
+                        </div>
+                      
+                        <div class="col-lg-2 col-md-6 mt-md-0 mt-4">
+                          <div class="d-flex">
+                            <div class="wrapper">
+                              <h3 class="mb-0 font-weight-semibold">Database Type</h3>
+                              <h4 align="center" style="font-weight: bold; margin-top: 8px;" class="mb-0 font-weight-medium text-primary">{{ DataBaseType }}</h4>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <style>
+                        .col-separator:not(:last-child)::after {
+                              content: "";
+                              position: absolute;
+                              right: 0;
+                              top: 0;
+                              height: 100%;
+                              width: 2px; /* Adjust the width as per your preference */
+                              background-color: #8862e0; /* Adjust the color as per your preference */
+                            }
+                      </style>
                     </div>
                   </div>
                 </div>
@@ -91,14 +123,14 @@
                 <div class="col-md-8 grid-margin">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title mb-0 ">Vulnerabilities State</h4>
-                      <div class="d-flex align-items-center justify-content-between w-100">
+                      <h4 class="card-title mb-0 ">Vulnerabilities Threats Level</h4>
+                      <!-- <div class="d-flex align-items-center justify-content-between w-100">
                         <p class="mb-0">State and Criticality of The Vulnerabilities</p>
                       </div>
                       <div class="d-flex align-items-end">
                         <h3 class="mb-0 font-weight-semibold">78 %</h3>
-                        <p class="mb-0 font-weight-medium mr-2 ml-2 mb-1">Range</p>
-                      </div>
+                        <p class="mb-0 font-weight-medium mr-2 ml-2 mb-1">Avarage</p>
+                      </div> -->
                       <canvas class="mt-4" height="100" id="market-overview-chart"></canvas>
                     </div>
                   </div>
@@ -133,19 +165,20 @@
                 <div class="col-lg-4 grid-margin stretch-card">
                   <div class="card">
                     <div class="p-4 pr-5 border-bottom bg-light d-flex justify-content-between">
-                      <h4 class="card-title mb-0">Radar chart</h4>
+                      <h4 class="card-title mb-0">Threats Mapping Area</h4>
                       <div id="radar-chart-legend"></div>
                     </div>
                     <div class="card-body">
                       <canvas class="mt-4" id="radarChart" style="height:250px"></canvas>
-                      <div class="d-flex mt-5 py-3 border-top">
+                      <!-- <div class="d-flex mt-5 py-3 border-top">
                         <p class="mb-0 font-weight-semibold"><span class="dot-indicator bg-success"></span> Student A </p>
                         <p class="mb-0 ml-auto text-primary">56%</p>
                       </div>
                       <div class="d-flex pt-3 border-top">
                         <p class="mb-0 font-weight-semibold"><span class="dot-indicator bg-success"></span> Student B</p>
                         <p class="mb-0 ml-auto text-primary">34%</p>
-                      </div>
+                      </div> -->
+
                     </div>
                   </div>
                 </div>
@@ -153,98 +186,33 @@
                 <div class="col-lg-8 grid-margin stretch-card">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Basic Table</h4>
-                      <p class="card-description"> Add class <code>.table</code> </p>
-                      <table class="table">
+                      <h4 style="font-size: large;" class="card-title">Site Technologies & Potential Exploitation</h4>
+                      <!-- <style>
+                        .table td {
+                          white-space: normal;
+                          word-break: break-word;
+                        }
+                      </style> -->
+                      <table class="table" style="margin-top: 40px;">
                         <thead>
                           <tr>
-                            <th>Profile</th>
-                            <th>VatNo.</th>
-                            <th>Created</th>
-                            <th>Status</th>
+                            <th>Technology</th>
+                            <th>Version</th>
+                            <th>WebSite</th>
+                            <th>Description</th>
                           </tr>
                         </thead>
                         <tbody>
+                          {% for technology in technologies_info %}
                           <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
+                            <td>{{ technology.slug }}</td>
                             <td>
-                              <label class="badge badge-danger">Pending</label>
+                              <label style="padding: 4px 8px; font-size: 12px;" class="badge badge-purple">{{ technology.version }}</label>
                             </td>
+                            <td>{{ technology.website }}</td>
+                            <td style="white-space: normal; word-break: break-word;">{{ technology.description }}</td>
                           </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Jacob</td>
-                            <td>53275531</td>
-                            <td>12 May 2017</td>
-                            <td>
-                              <label class="badge badge-danger">Pending</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Messsy</td>
-                            <td>53275532</td>
-                            <td>15 May 2017</td>
-                            <td>
-                              <label class="badge badge-warning">In progress</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>John</td>
-                            <td>53275533</td>
-                            <td>14 May 2017</td>
-                            <td>
-                              <label class="badge badge-info">Fixed</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Peter</td>
-                            <td>53275534</td>
-                            <td>16 May 2017</td>
-                            <td>
-                              <label class="badge badge-success">Completed</label>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Dave</td>
-                            <td>53275535</td>
-                            <td>20 May 2017</td>
-                            <td>
-                              <label class="badge badge-warning">In progress</label>
-                            </td>
-                          </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                     </div>
@@ -272,10 +240,3 @@
 </body>
 
 </html>
-<!-- 
-{% for tech in technologies_info %}
-<p>Slug: {{ tech.slug }}</p>
-<p>Description: {{ tech.description }}</p>
-<p>Version: {{ tech.version }}</p>
-<p>Website: {{ tech.website }}</p>
-{% endfor %} -->
