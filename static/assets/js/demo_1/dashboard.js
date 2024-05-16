@@ -360,7 +360,7 @@
           pointBorderWidth: 0,
           pointBackgroundColor: ChartColor[4],
           pointHoverRadius: 10,
-          data: [54, 45, 60, 70, 54, 75]
+          data: [totals.file*10, totals.directory_number*10, totals["301"] *10, totals.cve*10, totals.potentiality*10, totals.filtered_lines*10, totals.Severity*10, totals.informations*10, totals.infos_details*10, totals.database_type*10]
         }]
       };
   
@@ -473,7 +473,7 @@
     }
     if ($("#market-overview-chart").length) {
       var MarketingChartCanvas = $("#market-overview-chart").get(0).getContext("2d");
-      var Marketing_data_1_1 = [9, 2, 3, 0, 6, 3, 6, 3, 0, 0];
+      var Marketing_data_1_1 = [totals.file, totals.directory_number, totals["301"] , totals.cve, totals.potentiality, totals.filtered_lines, totals.Severity, totals.informations, totals.infos_details, totals.database_type];
 
       var MarketingChart = new Chart(MarketingChartCanvas, {
         type: 'bar',

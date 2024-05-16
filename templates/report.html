@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Severity</th>
+                <th>Database Type</th>
+                <th>Potentiality</th>
+                <th>Filtered Lines</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in data %}
+            <tr>
+                <td>{{ entry.Severity }}</td>
+                <td>{{ entry.database_type }}</td>
+                <td>{{ entry.potentiality }}</td>
+                <td>{{ entry.filtered_lines }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table class="table" style="margin-top: 40px;">
+        <thead>
+            <tr>
+                <th>Technology</th>
+                <th>Version</th>
+                <th>WebSite</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for technology in technologies_info %}
+            <tr>
+                <td>{{ technology.slug }}</td>
+                <td>
+                    <label style="padding: 4px 8px; font-size: 12px;" class="badge badge-purple">{{ technology.version
+                        }}</label>
+                </td>
+                <td>{{ technology.website }}</td>
+                <td style="white-space: normal; word-break: break-word;">{{ technology.description }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+
+</html>

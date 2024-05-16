@@ -20,7 +20,7 @@ def Vulnerabl_potentiality_depend_on_url_and_cve(count_potentiality, count_cve):
     elif count_potentiality >= 1 and count_potentiality <= 3 :
         return "Low"
     elif count_potentiality == 0 or count_cve == 0:
-        return "None"
+        return None
 
 def filter_files(directory):
     results = []

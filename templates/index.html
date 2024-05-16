@@ -39,7 +39,6 @@
                         <i class="mdi mdi-file-download"></i>Download Report
                       </button>
                   </div>
-
               </div>
               <!-- Page Title Header Ends-->
               <div class="row">
@@ -232,10 +231,13 @@
             {% set doughnutChart_Low = doughnutChart_Low %}
             {% set doughnutChart_Medium = doughnutChart_Medium %}
             {% set doughnutChart_High = doughnutChart_High %}
+            {% set totals = totals %}
             <script>
               var doughnutChart_Low = {{ doughnutChart_Low }};
               var doughnutChart_Medium = {{ doughnutChart_Medium }};
               var doughnutChart_High = {{ doughnutChart_High }};
+              var totals = {{ totals | tojson }};
+              
             </script>
 </body>
 

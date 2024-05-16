@@ -1,9 +1,13 @@
 import json
 import os, time
-import Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools ,Functions.filters , Functions.Global_Function
-from flask import Flask, render_template, request, redirect, url_for
+import Functions.chart_filters, Functions.broken_access_tools ,Functions.xss_tools ,Functions.inscure_design_tools,Functions.sql_tools, Functions.xxe_tools ,Functions.filters , Functions.Global_Function
+from flask import Flask, render_template, request, redirect, url_for, make_response
+import pdfkit
 
-app = Flask(__name__, template_folder="templates")        
+app = Flask(__name__, template_folder="/Users/mahdihussnie/Desktop/VulnCrop/templates")
+
+# wkhtmltopdf_path = os.environ.get('WKHTMLTOPDF_PATH', '/usr/local/bin/wkhtmltopdf')
+pdfkit_config = pdfkit.configuration(wkhtmltopdf='/usr/local/bin/wkhtmltopdf')
 
 @app.route("/", methods=["GET", "POST"])
 def homepage():
@@ -54,8 +58,50 @@ def index(directory_to_scan):
     for tech in data_tech['technologies']
 ]    # names_tech = [tech['name'] for tech in data_tech['technologies']]
     Functions.filters.filter_files(directory_to_scan)
-    return render_template('index.html',DataBaseType=DataBaseType,SqlInjection=SqlInjection,technologies_info=technologies_info, data_json_tech=data_json_tech,data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
+    totals=Functions.chart_filters.analyze_json_files()
+    return render_template('index.html',totals=totals,DataBaseType=DataBaseType,SqlInjection=SqlInjection,technologies_info=technologies_info, data_json_tech=data_json_tech,data_json=data_json,doughnutChart_Low=doughnutChart_Low,doughnutChart_Medium=doughnutChart_Medium,doughnutChart_High=doughnutChart_High,data=data, payloads=payloads, tools_executed=tools_executed, potentiality=potentiality, site_state=site_state)
 
+@app.route('/download_report', methods=['GET'])
+def download_report():
+    # Read the data from your JSON file
+    with open('filter.json', 'r') as f:
+        data = json.load(f)
+
+    with open('web_tech.json', 'r') as f:
+        data_tech = json.load(f)
+
+    data_json_tech = json.dumps(data_tech)
+
+    technologies_info = [
+        {
+            'slug': tech['slug'],
+            'description': tech['description'],
+            'version': tech['version'],
+            'website': tech['website']
+        }
+        for tech in data_tech['technologies']
+    ]
+
+    # Create a list to store the report data
+    report_data = []
+    for entry in data:
+        row = [
+            entry['Severity'],
+            entry['database_type'],
+            entry['potentiality'],
+            entry['filtered_lines']
+        ]
+        report_data.append(row)
+
+    # Render the report.html template with the data
+    html = render_template('report.html', data=data,data_json_tech=data_json_tech,technologies_info=technologies_info)
+    pdf = pdfkit.from_string(html, False, configuration=pdfkit_config)
+
+    # Generate the PDF response
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = "attachment; filename=report.pdf"
+    return response
 
 @app.route("/attacks", methods=["GET","POST"])
 def attacks_page():
